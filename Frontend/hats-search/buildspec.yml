@@ -29,4 +29,3 @@ artifacts:
     - "**/*"
   discard-paths: no
   base-directory: build
-
