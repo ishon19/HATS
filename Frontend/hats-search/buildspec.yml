@@ -5,12 +5,12 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo 'Spinning up environment'
+      - echo 'Spinning up environment - Inside'
       # download the core dependencies
       - echo 'Installing the HATS dependencies'
       # install node lts
       - echo 'Installing Node...'
-      - curl -fsSL https://deb.nodesource.com/setup_16.x | -E bash -
+      - curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
       - apt install -y nodejs
   pre_build:
     commands:
