@@ -1,6 +1,6 @@
 # Spec file for the automated deployment
 
-version: 0.3
+version: 0.2
 
 phases:
   install:
