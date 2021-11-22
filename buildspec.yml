@@ -5,7 +5,7 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo 'Spinning up environment'
+      - echo 'Spinning up environment - Outside'
       # download the core dependencies
       - echo 'Installing the HATS dependencies'
       # install node lts
@@ -15,7 +15,9 @@ phases:
   pre_build:
     commands:
       # change to project root
-      - cd /Frontend/hats-search
+      - cd Frontend/hats-search/
+      - echo current directory
+      - pwd
       # install dependencies
       - echo 'Installing dependencies...'
       - npm i
@@ -23,6 +25,7 @@ phases:
     commands:
       # Add the test commands
       # build
+      - echo current directory
       - pwd
       - echo 'Starting build process...'
       - npm run build
