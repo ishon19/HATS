@@ -5,7 +5,7 @@ import { IRootView } from "../interfaces/interface";
 
 const RootView = (props: IRootView) => {
   return (
-    <Box flexGrow={1}>
+    <Box flexGrow={1}>  
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6">HATS Search</Typography>
