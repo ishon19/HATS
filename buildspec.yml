@@ -1,0 +1,34 @@
+# Spec file for the automated deployment
+
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo 'Spinning up environment'
+      # download the core dependencies
+      - echo 'Installing the HATS dependencies'
+      # install node lts
+      - echo 'Installing Node...'
+      - curl -fsSL https://deb.nodesource.com/setup_16.x | -E bash -
+      - apt install -y nodejs
+  pre_build:
+    commands:
+      # change to project root
+      - cd /Frontend/hats-search
+      # install dependencies
+      - echo 'Installing dependencies...'
+      - npm i
+  build:
+    commands:
+      # Add the test commands
+      # build
+      - pwd
+      - echo 'Starting build process...'
+      - npm run build
+      - echo 'Build finished...'
+artifacts:
+  files:
+    - "**/*"
+  discard-paths: no
+  base-directory: build
