@@ -18,8 +18,7 @@ phases:
       # change to project root
       - echo Current working directory - $PWD
       - cd Frontend/hats-search/
-      - echo current directory
-      - pwd
+      - echo Current working directory - $PWD
       # install dependencies
       - echo 'Installing dependencies...'
       - npm i
