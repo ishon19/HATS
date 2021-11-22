@@ -1,14 +1,14 @@
 import {
+  Autocomplete,
   Button,
   FormControl,
   Grid,
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  TextField,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import SearchIcon from "@mui/icons-material/Search";
-import React from "react";
 
 const SearchHome = () => {
   return (
@@ -25,19 +25,29 @@ const SearchHome = () => {
     >
       <Grid container spacing={1} direction="row" alignItems="center">
         <Grid item xs={6}>
-          <FormControl fullWidth sx={{ m: 1 }}>            
-            <OutlinedInput
-              id="search-query"
-              startAdornment={
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              }              
+          <FormControl fullWidth sx={{ m: 1 }}>
+            <Autocomplete
+              freeSolo
+              disableClearable
+              options={["Test", "covid", "india"]}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  InputProps={{
+                    ...params.InputProps,
+                    type: "search",
+                  }}
+                />
+              )}
             />
           </FormControl>
         </Grid>
         <Grid item xs={1}>
-          <Button variant="contained">Search</Button>
+          <Button
+            variant="contained"            
+          >
+            Search
+          </Button>
         </Grid>
       </Grid>
     </Box>
