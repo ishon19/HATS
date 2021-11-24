@@ -9,8 +9,17 @@ import {
   TextField,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import React, { useState } from "react";
+import SearchField from "./SearchField";
 
 const SearchHome = () => {
+  const [value, setValue] = React.useState("");
+
+  const handleChange = (_event: React.ChangeEvent<{}>, newValue: string) => {
+    console.log("[SearchHome] ", newValue);
+    setValue(newValue);
+  };
+
   return (
     <Box
       sx={{
@@ -25,29 +34,12 @@ const SearchHome = () => {
     >
       <Grid container spacing={1} direction="row" alignItems="center">
         <Grid item xs={6}>
-          <FormControl fullWidth sx={{ m: 1 }}>
-            <Autocomplete
-              freeSolo
-              disableClearable
-              options={["Test", "covid", "india"]}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  InputProps={{
-                    ...params.InputProps,
-                    type: "search",
-                  }}
-                />
-              )}
-            />
+          <FormControl fullWidth>
+            <SearchField value={value} handleChange={handleChange} />
           </FormControl>
         </Grid>
         <Grid item xs={1}>
-          <Button
-            variant="contained"            
-          >
-            Search
-          </Button>
+          <Button variant="contained">Search</Button>
         </Grid>
       </Grid>
     </Box>
