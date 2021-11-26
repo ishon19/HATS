@@ -1,5 +1,5 @@
 import { Autocomplete, TextField } from "@mui/material";
-import { ISearchField } from "../interfaces/interface";
+import { ISearchField } from "../../interfaces/interface";
 
 const SearchField = (props: ISearchField) => {
   const { value, handleChange } = props;
@@ -16,6 +16,7 @@ const SearchField = (props: ISearchField) => {
           value={value}
           onChange={(event) => handleChange(event, event.target.value)}
           variant="filled"
+          fullWidth
           size="small"
           InputProps={{
             ...params.InputProps,
