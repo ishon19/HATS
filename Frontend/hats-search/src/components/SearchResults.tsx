@@ -24,7 +24,7 @@ const SearchResults = () => {
       container
       direction="column"
       spacing={2}
-      sx={{ padding: "1rem", marginBottom: "2rem" }}
+      sx={{ padding: "1rem 20rem 5rem 20rem" }}
       alignItems="flex-start"
     >
       <Grid item xs={12} sx={{ width: "100%" }}>
