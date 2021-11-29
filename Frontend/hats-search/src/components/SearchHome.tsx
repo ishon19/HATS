@@ -1,19 +1,11 @@
-import {
-  Autocomplete,
-  Button,
-  FormControl,
-  Grid,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  TextField,
-} from "@mui/material";
+import { Button, FormControl, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import SearchField from "./SearchField";
+import { Link } from "react-router-dom";
+import SearchField from "./atoms/SearchField";
 
 const SearchHome = () => {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState("");
 
   const handleChange = (_event: React.ChangeEvent<{}>, newValue: string) => {
     console.log("[SearchHome] ", newValue);
@@ -39,7 +31,12 @@ const SearchHome = () => {
           </FormControl>
         </Grid>
         <Grid item xs={1}>
-          <Button variant="contained">Search</Button>
+          <Link
+            to={{ pathname: "/search", search: "q=" + value }}
+            style={{ textDecoration: "none" }}            
+          >
+            <Button variant="contained">Search</Button>
+          </Link>
         </Grid>
       </Grid>
     </Box>

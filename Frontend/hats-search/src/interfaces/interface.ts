@@ -15,3 +15,17 @@ export interface ISearchField {
     value: string
   ) => void;
 }
+
+export interface ISearchResult {
+  title: string;
+  subtitle: string;
+  annotation: string;
+}
+
+export interface IPaginate {
+  page: number;
+  perPage: number;
+  total: number;
+  handlePageChange: (page: number) => void;
+  handlePerPageChange: (perPage: number) => void;
+}
