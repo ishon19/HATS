@@ -1,5 +1,5 @@
 import { Button, Grid, TablePagination } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import SearchField from "./atoms/SearchField";
 import SearchResult from "./atoms/SearchResult";
@@ -12,6 +12,12 @@ const SearchResults = () => {
   const [params] = useSearchParams();
   const searchQuery = params.get("q");
   console.log(searchQuery);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, [isLoading]);
 
   return (
     <Grid
