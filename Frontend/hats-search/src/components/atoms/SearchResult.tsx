@@ -5,12 +5,6 @@ import { SEARCH_IMAGE_URL } from "../../constants";
 import { ISearchResult } from "../../interfaces/interface";
 import { cardStyles } from "../styles/card-styles";
 
-
-
-const getAnnotatedText = (text: string, annotation: string) => {
-
-}
-
 const SearchResult = (props: ISearchResult) => {
   const classes = cardStyles();
 

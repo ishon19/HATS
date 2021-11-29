@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@mui/material";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import "./App.css";
 import RootView from "./components/RootView";
 import SearchHome from "./components/SearchHome";
@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={themeOptions}>
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path="/" element={<RootView root={<SearchHome />} />} />
             <Route
@@ -18,7 +18,7 @@ function App() {
               element={<RootView root={<SearchResults />} />}
             />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </ThemeProvider>
     </div>
   );

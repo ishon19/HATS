@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Skeleton, Stack } from "@mui/material";
+import { Card, CardContent, Skeleton, Stack } from "@mui/material";
 import React from "react";
 import { cardStyles } from "./styles/card-styles";
 
