@@ -32,7 +32,7 @@ def search():
     print("[search] Health check: ",solr_server.solr.ping())
 
     response_obj = solr_server.solr.search(search_query)
-    print("response_obj: ", response_obj)
+    print("response_obj: ", jsonify(response_obj))
     return jsonify({'message': 'Debugging the api!'})
 
 
