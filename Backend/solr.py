@@ -4,6 +4,7 @@
 
 import pysolr
 from constants import Constants
+from flask import jsonify
 
 
 class SolrServer:
@@ -15,4 +16,4 @@ class SolrServer:
         print("[search_docs] Search Query: ", query)
         response = self.solr.search(query)
         print("[search_docs] Response: ", response)
-        return response
+        return jsonify(response)
