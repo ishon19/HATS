@@ -31,17 +31,9 @@ def search():
     # health check
     print("[search] Health check: ", solr_server.solr.ping())
 
-    response_obj = solr_server.solr.search(search_query)
-    print("response_obj: ", response_obj)
-
-    # return the results
-    to_return = []
-    for result in response_obj:
-        print("result: ", result)
-        to_return.append(result)
-    
-    print("to_return: ", to_return)
-    return jsonify({'data': to_return})
+    # search
+    response_obj = solr_server.search_docs(search_query)        
+    return jsonify({'data': response_obj})
 
 
 if __name__ == '__main__':
