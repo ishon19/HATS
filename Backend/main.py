@@ -29,7 +29,7 @@ def search():
     solr_server = SolrServer()
 
     # health check
-    print("[search] Health check: ",solr_server.solr.ping())
+    print("[search] Health check: ", solr_server.solr.ping())
 
     response_obj = solr_server.solr.search(search_query)
     print("response_obj: ", response_obj)
@@ -39,8 +39,9 @@ def search():
     for result in response_obj:
         print("result: ", result)
         to_return.append(result)
-        
-    return jsonify({'data': jsonify(to_return)})
+    
+    print("to_return: ", to_return)
+    return jsonify({'data': to_return})
 
 
 if __name__ == '__main__':
