@@ -10,7 +10,7 @@ from flask import jsonify
 class SolrServer:
     def __init__(self):
         self.solr = pysolr.Solr(
-            'http://localhost:8983/solr/'+Constants.SOLR_CORE_NAME, timeout=10, always_commit=True)
+            'http://localhost:8983/solr/'+Constants.SOLR_CORE_NAME+'/', timeout=10, always_commit=True)
 
     def search_docs(self, query):
         print("[search_docs] Search Query: ", query)

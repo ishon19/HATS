@@ -31,9 +31,9 @@ def search():
     # health check
     solr_server.solr.ping()
 
-    response_obj = solr_server.search_docs(search_query)
-    print("response_obj: ", response_obj)
-    return jsonify(response_obj)
+    # response_obj = solr_server.search_docs(search_query)
+    # print("response_obj: ", response_obj)
+    return jsonify({'message': 'Debugging the api!'})
 
 
 if __name__ == '__main__':
