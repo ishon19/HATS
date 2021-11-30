@@ -6,7 +6,7 @@ class SolrUtils:
     '''
         Helper functions 
     '''
-    def get_solr_query(self, query_string):
+    def get_solr_query(query_string):
         '''
             return the query string
         '''
@@ -17,7 +17,7 @@ class SolrUtils:
         modified_query = modified_query[:-4]
         return modified_query
     
-    def format_response(self, response):
+    def format_response(response):
         '''
             format the response
         '''
