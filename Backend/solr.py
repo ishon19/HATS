@@ -3,7 +3,6 @@
 '''
 
 import pysolr
-
 from constants import Constants
 
 

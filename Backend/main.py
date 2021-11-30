@@ -28,7 +28,8 @@ def search():
     # search the term
     solr_server = SolrServer()
     response_obj = solr_server.search_docs(search_query)
-    print("response_obj: ", jsonify(response_obj))
+    print("response_obj: ", response_obj)
+    return jsonify(response_obj)
 
 
 if __name__ == '__main__':
