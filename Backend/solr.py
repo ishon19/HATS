@@ -15,5 +15,4 @@ class SolrServer:
     def search_docs(self, query):
         print("[search_docs] Search Query: ", query)
         response = self.solr.search(query)
-        print("[search_docs] Response: ", response)
-        return jsonify(response)
+        return response
