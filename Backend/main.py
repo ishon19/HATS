@@ -3,6 +3,7 @@ Backend implementation of the HATS search application.
 '''
 
 from flask import Flask, request, jsonify
+from flask_cors import cross_origin
 from solr import SolrServer
 
 app = Flask(__name__)
@@ -17,6 +18,7 @@ def get_root():
 
 
 @app.route('/search', methods=['POST'])
+@cross_origin()
 def search():
     '''
     Return the results of a search.
@@ -32,7 +34,7 @@ def search():
     print("[search] Health check: ", solr_server.solr.ping())
 
     # search
-    response_obj = solr_server.search_docs(search_query)        
+    response_obj = solr_server.search_docs(search_query)
     return jsonify({'data': response_obj})
 
 
