@@ -7,7 +7,8 @@ const getSearchResults = async (query: string) => {
   const response = await axios.post(url, {
     query,
   });
-  return response.data;
+  console.log("[solrSearch]", response);
+  return response.data.data;
 };
 
 export { getSearchResults };

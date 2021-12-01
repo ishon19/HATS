@@ -13,7 +13,7 @@ const SearchResults = () => {
     []
   );
   const [value, setValue] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [params] = useSearchParams();
   const searchQuery = (params.get("q") as string) ?? "";
   console.log(searchQuery);
@@ -21,12 +21,14 @@ const SearchResults = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data: ISearchResultResponse[] = await getSearchResults(searchQuery);
-      setSearchResults(data);
-      setIsLoading(false);
+      if (data.length > 0) {
+        setSearchResults(data);
+        setIsLoading(false);
+      }
     };
     setIsLoading(true);
     fetchData();
-  }, [isLoading]);
+  }, [searchQuery]);
 
   return (
     <Grid
@@ -51,19 +53,23 @@ const SearchResults = () => {
           </Grid>
         </Grid>
       </Grid>
-      {searchResults.map((searchResult: ISearchResultResponse) => (
-        <Grid item key={searchResult.id} xs={12} sx={{ width: "100%" }}>
-          {isLoading ? (
-            <SearchResultSkeleton />
-          ) : (
-            <SearchResult
-              annotation={searchResult.country || "N/A"}
-              subtitle={searchResult.tweet_date || "N/A"}
-              title={searchResult.tweet_text || "Title not available"}
-            />
-          )}
-        </Grid>
-      ))}
+      {isLoading
+        ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+            <Grid item key={i} xs={12} sx={{ width: "100%" }}>
+              <SearchResultSkeleton />
+            </Grid>
+          ))
+        : searchResults.map((searchResult: ISearchResultResponse) => (
+            <Grid item key={searchResult.id} xs={12} sx={{ width: "100%" }}>
+              {
+                <SearchResult
+                  annotation={searchResult.country || "N/A"}
+                  subtitle={searchResult.tweet_date || "N/A"}
+                  title={searchResult.tweet_text || "Title not available"}
+                />
+              }
+            </Grid>
+          ))}
       <Grid item>
         <Paginate
           handlePageChange={() => {}}
