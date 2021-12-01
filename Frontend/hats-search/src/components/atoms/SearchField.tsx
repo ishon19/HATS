@@ -1,4 +1,5 @@
 import { Autocomplete, TextField } from "@mui/material";
+import { SEARCH_SUGGESTIONS } from "../../constants";
 import { ISearchField } from "../../interfaces/interface";
 
 const SearchField = (props: ISearchField) => {
@@ -9,7 +10,7 @@ const SearchField = (props: ISearchField) => {
       freeSolo
       onChange={(event, newValue) => handleChange(event, newValue)}
       disableClearable
-      options={["Test", "covid", "india"]}
+      options={SEARCH_SUGGESTIONS}
       renderInput={(params) => (
         <TextField
           {...params}
