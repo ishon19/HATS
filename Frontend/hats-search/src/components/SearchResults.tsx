@@ -1,22 +1,31 @@
 import { Button, Grid, TablePagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { ISearchResultResponse } from "../interfaces/interface";
+import { getSearchResults } from "../services/solrSearch";
 import SearchField from "./atoms/SearchField";
 import SearchResult from "./atoms/SearchResult";
 import Paginate from "./molecules/Paginate";
 import SearchResultSkeleton from "./SearchResultSkeleton";
 
 const SearchResults = () => {
+  const [searchResults, setSearchResults] = useState<ISearchResultResponse[]>(
+    []
+  );
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [params] = useSearchParams();
-  const searchQuery = params.get("q");
+  const searchQuery = (params.get("q") as string) ?? "";
   console.log(searchQuery);
 
   useEffect(() => {
-    setTimeout(() => {
+    const fetchData = async () => {
+      const data: ISearchResultResponse[] = await getSearchResults(searchQuery);
+      setSearchResults(data);
       setIsLoading(false);
-    }, 2000);
+    };
+    setIsLoading(true);
+    fetchData();
   }, [isLoading]);
 
   return (
@@ -42,15 +51,15 @@ const SearchResults = () => {
           </Grid>
         </Grid>
       </Grid>
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-        <Grid item key={i} xs={12} sx={{ width: "100%" }}>
+      {searchResults.map((searchResult: ISearchResultResponse) => (
+        <Grid item key={searchResult.id} xs={12} sx={{ width: "100%" }}>
           {isLoading ? (
             <SearchResultSkeleton />
           ) : (
             <SearchResult
-              annotation={`Search ${i}`}
-              subtitle={`Search ${i}`}
-              title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+              annotation={searchResult.country || "N/A"}
+              subtitle={searchResult.tweet_date || "N/A"}
+              title={searchResult.tweet_text || "Title not available"}
             />
           )}
         </Grid>
