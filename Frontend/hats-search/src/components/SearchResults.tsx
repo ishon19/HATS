@@ -1,6 +1,7 @@
 import { Button, Grid, TablePagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+// import { styled } from "@mui/material/styles";
 import { ISearchResultResponse } from "../interfaces/interface";
 import { getSearchResults } from "../services/solrSearch";
 import SearchField from "./atoms/SearchField";
@@ -30,12 +31,23 @@ const SearchResults = () => {
     fetchData();
   }, [searchQuery]);
 
+  // const CustomGrid = styled(Grid)(({ theme }) => ({
+  //   root: {
+  //     [theme.breakpoints.down("md")]: {
+  //       padding: "1rem 15rem 5rem 15rem",
+  //     },
+  //     [theme.breakpoints.up("md")]: {
+  //       padding: "1rem 20rem 5rem 20rem",
+  //     },
+  //   },
+  // }));
+
   return (
     <Grid
       container
       direction="column"
       spacing={2}
-      sx={{ padding: "1rem 20rem 5rem 20rem" }}
+      sx={{ padding: "1rem 10rem 5rem 10rem" }}
       alignItems="flex-start"
     >
       <Grid item xs={12} sx={{ width: "100%" }}>

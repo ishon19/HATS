@@ -1,5 +1,4 @@
 import axios from "axios";
-import { ISearchResultResponse } from "../interfaces/interface";
 import { SEARCH_ENDPOINT } from "./constants";
 
 const getSearchResults = async (query: string) => {
