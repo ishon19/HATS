@@ -11,19 +11,19 @@ const SearchResultSkeleton = () => {
         <Stack spacing={1}>
           <Skeleton
             variant="rectangular"
-            width="100%"
+            width="80%"
             height={30}
             animation="wave"
           />
           <Skeleton
             variant="rectangular"
-            width="100%"
+            width="70%"
             height={10}
             animation="wave"
           />
           <Skeleton
             variant="rectangular"
-            width="100%"
+            width="70%"
             height={20}
             animation="wave"
           />

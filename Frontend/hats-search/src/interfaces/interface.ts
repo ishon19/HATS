@@ -4,6 +4,7 @@ import React from "react";
 
 export interface IRootView {
   root: JSX.Element;
+  hideFilter?: boolean;
 }
 
 export interface ISearchField {
@@ -42,4 +43,15 @@ export interface ISearchResultResponse {
   tweet_lang: string;
   tweet_text: string;
   verified: boolean;
+}
+
+export interface IFilterMenu {
+  handleFilterChange: (filter: string) => void;
+  title: string;
+  options: string[];
+}
+
+export interface ICheckboxWithTitle {
+  title: string;
+  name: string;
 }

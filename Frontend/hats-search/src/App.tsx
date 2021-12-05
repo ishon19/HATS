@@ -12,7 +12,10 @@ function App() {
       <ThemeProvider theme={themeOptions}>
         <HashRouter>
           <Routes>
-            <Route path="/" element={<RootView root={<SearchHome />} />} />
+            <Route
+              path="/"
+              element={<RootView root={<SearchHome />} hideFilter={true} />}
+            />
             <Route
               path="/search"
               element={<RootView root={<SearchResults />} />}
