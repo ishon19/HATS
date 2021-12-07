@@ -3,7 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { SEARCH_IMAGE_URL } from "../../constants";
 import { ISearchResult } from "../../interfaces/interface";
+import TextAnnotation from "../molecules/TextAnnotation";
 import { cardStyles } from "../styles/card-styles";
+import { getColorBySentiment } from "../utils";
 
 const SearchResult = (props: ISearchResult) => {
   const classes = cardStyles();
@@ -12,16 +14,29 @@ const SearchResult = (props: ISearchResult) => {
     <Card className={classes.root}>
       <CardMedia image={SEARCH_IMAGE_URL} />
       <CardContent>
-        <Stack spacing={0.5}>
+        <Stack spacing={1}>
           <Typography variant="h6" className={classes.title}>
-            <Link className={classes.link} to="/search-details">
+            <Link
+              className={classes.link}
+              to="/search-details"
+              style={{
+                color: getColorBySentiment(
+                  props.annotation.sentiment?.toLowerCase() || "neutral"
+                ),
+              }}
+            >
               {props.title}
             </Link>
           </Typography>
           <Typography variant="body2" className={classes.annotation}>
-            {props.annotation}
+            <TextAnnotation
+              country={props.annotation.country}
+              verified={props.annotation.verified}
+              poiName={props.annotation.poiName}
+              time={props.subtitle}
+              sentiment={props.annotation.sentiment}
+            />
           </Typography>
-          <Typography variant="subtitle1">{props.subtitle}</Typography>
         </Stack>
       </CardContent>
     </Card>

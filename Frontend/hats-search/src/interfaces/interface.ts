@@ -4,6 +4,7 @@ import React from "react";
 
 export interface IRootView {
   root: JSX.Element;
+  hideFilter?: boolean;
 }
 
 export interface ISearchField {
@@ -19,7 +20,7 @@ export interface ISearchField {
 export interface ISearchResult {
   title: string;
   subtitle: string;
-  annotation: string;
+  annotation: ITextAnnotation;
 }
 
 export interface IPaginate {
@@ -35,6 +36,8 @@ export interface ISearchResultResponse {
   tweet_en?: string | string[];
   tweet_es?: string | string[];
   tweet_hi?: string | string[];
+  poi_name?: string;
+  sentiment?: string;
   country: string;
   id: string;
   mentions: string[];
@@ -42,4 +45,24 @@ export interface ISearchResultResponse {
   tweet_lang: string;
   tweet_text: string;
   verified: boolean;
+}
+
+export interface IFilterMenu {
+  handleFilterChange: (filter: string) => void;
+  title: string;
+  options: string[];
+}
+
+export interface ICheckboxWithTitle {
+  title: string;
+  name: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface ITextAnnotation {
+  country?: string;
+  time?: string;
+  verified?: boolean;
+  poiName?: string;
+  sentiment?: string;
 }
