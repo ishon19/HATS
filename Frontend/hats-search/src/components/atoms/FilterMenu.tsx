@@ -11,6 +11,10 @@ import { IFilterMenu } from "../../interfaces/interface";
 import CheckBoxWithTitle from "./CheckBoxWithTitle";
 
 const FilterMenu = (props: IFilterMenu) => {
+  const onCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Checkbox ", event.target.name, event.target.checked);
+  };
+
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -20,7 +24,14 @@ const FilterMenu = (props: IFilterMenu) => {
       </AccordionSummary>
       <AccordionDetails>
         {props.options.map((option, index) => {
-          return <CheckBoxWithTitle key={index} name={option} title={option} />;
+          return (
+            <CheckBoxWithTitle
+              key={index}
+              name={option}
+              title={option}
+              onChange={onCheckboxChange}
+            />
+          );
         })}
       </AccordionDetails>
     </Accordion>

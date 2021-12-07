@@ -18,12 +18,6 @@ const SearchResultSkeleton = () => {
           <Skeleton
             variant="rectangular"
             width="70%"
-            height={10}
-            animation="wave"
-          />
-          <Skeleton
-            variant="rectangular"
-            width="70%"
             height={20}
             animation="wave"
           />

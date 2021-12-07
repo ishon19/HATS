@@ -6,7 +6,7 @@ const CheckBoxWithTitle = (props: ICheckboxWithTitle) => {
   return (
     <Grid container alignItems="baseline">
       <Grid item>
-        <Checkbox name={props.name} />
+        <Checkbox name={props.name} onChange={props.onChange}/>
       </Grid>
       <Grid item>{props.title}</Grid>
     </Grid>
