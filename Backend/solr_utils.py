@@ -28,7 +28,7 @@ class SolrUtils:
         for doc in response:
             temp_doc = []
             temp_doc.append(doc)
-            sentimentAnalyser = SentimentAnalyzer(doc)
+            sentimentAnalyser = SentimentAnalyzer(temp_doc)
             doc = sentimentAnalyser.get_sentiment()
             formatted_response.append(doc)
             print("[format_response] Doc: ", doc)
