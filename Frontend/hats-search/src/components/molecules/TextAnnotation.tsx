@@ -3,9 +3,15 @@ import React from "react";
 import { ITextAnnotation } from "../../interfaces/interface";
 
 const TextAnnotation = (props: ITextAnnotation) => {
-  const { country, time, verified, poiName } = props;
+  const { sentiment, country, time, verified, poiName } = props;
   return (
     <Grid container direction="row" spacing={1}>
+      <Grid item>
+        <Typography variant="caption" fontWeight={600}>
+          Sentiment:{" "}
+        </Typography>
+        <Typography variant="caption">{sentiment}</Typography>
+      </Grid>
       <Grid item>
         <Typography variant="caption" fontWeight={600}>
           Country:{" "}

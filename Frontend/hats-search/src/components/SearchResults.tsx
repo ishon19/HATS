@@ -74,13 +74,13 @@ const SearchResults = () => {
                   <SearchResultSkeleton />
                 </Grid>
               ))
-            : searchResults.map((searchResult: ISearchResultResponse) => (
-                <Grid item key={searchResult.id} xs={12} sx={{ width: "100%" }}>
+            : searchResults.map((searchResult: any) => (
+                <Grid item key={searchResult[0].id} xs={12} sx={{ width: "100%" }}>
                   {
                     <SearchResult
-                      annotation={searchResult || "N/A"}
-                      subtitle={searchResult.tweet_date || "N/A"}
-                      title={searchResult.tweet_text || "Title not available"}
+                      annotation={searchResult[0] || "N/A"}
+                      subtitle={searchResult[0].tweet_date || "N/A"}
+                      title={searchResult[0].tweet_text || "Title not available"}
                     />
                   }
                 </Grid>

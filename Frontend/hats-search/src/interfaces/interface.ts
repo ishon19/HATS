@@ -37,6 +37,7 @@ export interface ISearchResultResponse {
   tweet_es?: string | string[];
   tweet_hi?: string | string[];
   poi_name?: string;
+  sentiment?: string;
   country: string;
   id: string;
   mentions: string[];
@@ -63,4 +64,5 @@ export interface ITextAnnotation {
   time?: string;
   verified?: boolean;
   poiName?: string;
+  sentiment?: string;
 }
