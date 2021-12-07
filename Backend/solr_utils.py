@@ -2,7 +2,7 @@
     This file contains the utility methods for solr
 '''
 
-from sentiment_analyser import SentimentAnalyser
+from sentiment_analyser import SentimentAnalyzer
 
 
 class SolrUtils:
@@ -28,7 +28,7 @@ class SolrUtils:
         for doc in response:
             temp_doc = []
             temp_doc.append(doc)
-            sentimentAnalyser = SentimentAnalyser(doc)
+            sentimentAnalyser = SentimentAnalyzer(doc)
             doc = sentimentAnalyser.get_sentiment()
             formatted_response.append(doc)
             print("[format_response] Doc: ", doc)
