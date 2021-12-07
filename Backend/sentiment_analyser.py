@@ -87,9 +87,9 @@ class SentimentAnalyzer:
         sid = SentimentIntensityAnalyzer()
         print("[get_sentiment] data: ", self.data)
         for i in range(len(self.data)):
-            self.data[i]["tweet_text"] = p.tokenizer(
-                self.data[i]["tweet_text"])
-            sentiment = sid.polarity_scores(self.data[i]['tweet_text'])
+            text_analyse = p.tokenizer(
+                self.data[i]["tweet_text"])        
+            sentiment = sid.polarity_scores(text_analyse)
             if sentiment["compound"] >= 0.05:
                 self.data[i]["sentiment"] = "Positive"
             elif sentiment["compound"] > -0.05 and sentiment["compound"] < 0.05:
