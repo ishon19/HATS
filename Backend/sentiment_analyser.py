@@ -91,10 +91,10 @@ class SentimentAnalyzer:
                 self.data[i]["tweet_text"])
             sentiment = sid.polarity_scores(self.data[i]['tweet_text'])
             if sentiment["compound"] >= 0.05:
-                self.data[i]["Sentiment"] = "Positive"
+                self.data[i]["sentiment"] = "Positive"
             elif sentiment["compound"] > -0.05 and sentiment["compound"] < 0.05:
-                self.data[i]["Sentiment"] = "Neutral"
+                self.data[i]["sentiment"] = "Neutral"
             elif sentiment["compound"] <= -0.05:
-                self.data[i]["Sentiment"] = "Negative"
+                self.data[i]["sentiment"] = "Negative"
             sentiment = None
         return self.data
