@@ -24,8 +24,14 @@ def search():
     Return the results of a search.
     '''
     request_data = request.get_json()
-    search_query = request_data['query']
+    search_query =request_data['query']
+    search_filters = request_data['filters']
+    search_page = request_data['page_number']
+    search_rows = request_data['rows_per_page']
     print("Search Query: ", search_query)
+    print("Search Filters: ", search_filters)
+    print("Search Page: ", search_page)
+    print("Rows per Page: ", search_rows)
 
     # search the term
     solr_server = SolrServer()
@@ -34,7 +40,7 @@ def search():
     print("[search] Health check: ", solr_server.solr.ping())
 
     # search
-    response_obj = solr_server.search_docs(search_query)
+    response_obj = solr_server.search_docs(search_query, search_filters, search_page, search_rows)
     return jsonify({'data': response_obj})
 
 

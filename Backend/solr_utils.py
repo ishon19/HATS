@@ -20,6 +20,46 @@ class SolrUtils:
         modified_query = modified_query[:-4]
         return modified_query
 
+    def get_options(filters, page, row):
+        # parse for the filters
+        # Note: assuming 10 rows for page
+        rows = page * row
+        start = rows - row
+        filt = []
+        if 'pois' in filters:
+            temp = ""
+            print(type(filters['pois']))
+            for f in filters['pois']:
+                print(f)
+                temp += 'poi_name:\"' + f + '\" OR '
+            temp = temp[:-4]
+            filt.append(temp)
+        if 'country' in filters:
+            temp = ""
+            print(type(filters['country']))
+            for f in filters['country']:
+                print(f)
+                temp += 'country:\""' + f + '\"" OR '
+            temp = temp[:-4]
+            filt.append(temp)
+        if 'language' in filters:
+            temp = ""
+            print(type(filters['language']))
+            for f in filters['language']:
+                print(f)
+                temp += 'tweet_lang:\""' + f + '\"" OR '
+            temp = temp[:-4]
+            filt.append(temp)
+    
+        options = {
+            "start": start,
+            "rows": rows
+        }
+        if filt:
+            options["fq"] = filt
+        return options
+    
+
     def format_response(response):
         '''
             format the response
