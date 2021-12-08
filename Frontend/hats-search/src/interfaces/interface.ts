@@ -66,3 +66,9 @@ export interface ITextAnnotation {
   poiName?: string;
   sentiment?: string;
 }
+
+export interface IFilterState {
+  poi: Array<{ title: string; status: "checked" | "unchecked" }>;
+  lang: Array<{ title: string; status: "checked" | "unchecked" }>;
+  country: Array<{ title: string; status: "checked" | "unchecked" }>;
+}

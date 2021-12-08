@@ -10,15 +10,23 @@ import { Box } from "@mui/system";
 import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import React from "react";
-import { IRootView } from "../interfaces/interface";
+import { IFilterState, IRootView } from "../interfaces/interface";
 import FilterMenu from "./atoms/FilterMenu";
 
-export const FilterContext = React.createContext([]);
+export const FilterContext = React.createContext<IFilterState>({
+  poi: [],
+  lang: [],
+  country: [],
+});
 
 const RootView = (props: IRootView) => {
   const hideFilter = props.hideFilter;
   const [open, setOpen] = React.useState(false);
-  const [filters, setFilters] = React.useState([]);
+  const [filters, setFilters] = React.useState<IFilterState>({
+    poi: [],
+    lang: [],
+    country: [],
+  });
 
   const filterClickHandler = () => {
     console.log("filter button clicked");
