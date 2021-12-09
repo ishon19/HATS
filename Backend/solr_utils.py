@@ -39,7 +39,7 @@ class SolrUtils:
             print(type(filters['country']))
             for f in filters['country']:
                 print(f)
-                temp += 'country:\""' + f + '\"" OR '
+                temp += 'country:\"' + f + '\" OR '
             temp = temp[:-4]
             filt.append(temp)
         if 'language' in filters:
@@ -47,7 +47,7 @@ class SolrUtils:
             print(type(filters['language']))
             for f in filters['language']:
                 print(f)
-                temp += 'tweet_lang:\""' + f + '\"" OR '
+                temp += 'tweet_lang:\"' + f + '\" OR '
             temp = temp[:-4]
             filt.append(temp)
     
