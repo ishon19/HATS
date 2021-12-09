@@ -20,6 +20,13 @@ class SolrUtils:
         modified_query = modified_query[:-4]
         return modified_query
 
+    def get_solr_reply_query(tweet_id):
+        '''
+            return the query string to fetch reply tweets
+        '''
+        modified_query = 'replied_to_tweet_id:' + tweet_id
+        return modified_query
+
     def format_response(response):
         '''
             format the response
