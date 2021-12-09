@@ -38,5 +38,26 @@ def search():
     return jsonify({'data': response_obj})
 
 
+@app.route('/search/insights', methods=['POST'])
+@cross_origin()
+def insights():
+    '''
+    Return the results of a search.
+    '''
+    request_data = request.get_json()
+    search_id = request_data['tweet_id']
+    print("Replies for Tweet ID: ", search_id)
+
+    # search the term
+    solr_server = SolrServer()
+
+    # health check
+    print("[search] Health check: ", solr_server.solr.ping())
+
+    # search
+    response_obj = solr_server.search_replies(search_id)
+    return jsonify({'data': response_obj})
+
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=9999, debug=True)
