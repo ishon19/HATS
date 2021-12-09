@@ -30,6 +30,15 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
+from deep_translator import (GoogleTranslator,
+                             PonsTranslator,
+                             LingueeTranslator,
+                             MyMemoryTranslator,
+                             YandexTranslator,
+                             DeepL,
+                             QCRI,
+                             single_detection,
+                             batch_detection)
 nltk.download("stopwords")
 nltk.download("vader_lexicon")
 
@@ -47,6 +56,8 @@ class Preprocessor:
         """ Implement logic to pre-process & tokenize document text.
             Write the code in such a way that it can be re-used for processing the user's query.
             To be implemented."""
+        # Translate text to english
+        text = GoogleTranslator(source='auto', target='en').translate(text=text)
         # 1. Conversion of text in lower case.
         text = text.lower()
 
