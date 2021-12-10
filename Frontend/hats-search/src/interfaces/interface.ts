@@ -5,6 +5,7 @@ import React from "react";
 export interface IRootView {
   root: JSX.Element;
   hideFilter?: boolean;
+  viewName?: string;
 }
 
 export interface ISearchField {
@@ -48,14 +49,20 @@ export interface ISearchResultResponse {
 }
 
 export interface IFilterMenu {
-  handleFilterChange: (filter: string) => void;
+  filterName: string;
+  handleFilterChange: (
+    filterName: string,
+    name: string,
+    checked: boolean
+  ) => void;
   title: string;
-  options: string[];
+  options: Array<{ name: string; value: string; checked: boolean }>;
 }
 
 export interface ICheckboxWithTitle {
   title: string;
   name: string;
+  checked: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -68,7 +75,19 @@ export interface ITextAnnotation {
 }
 
 export interface IFilterState {
-  poi: Array<{ title: string; status: "checked" | "unchecked" }>;
-  lang: Array<{ title: string; status: "checked" | "unchecked" }>;
-  country: Array<{ title: string; status: "checked" | "unchecked" }>;
+  poi: Array<{
+    name: string;
+    value: string;
+    checked: boolean;
+  }>;
+  lang: Array<{
+    name: string;
+    value: string;
+    checked: boolean;
+  }>;
+  country: Array<{
+    name: string;
+    value: string;
+    checked: boolean;
+  }>;
 }

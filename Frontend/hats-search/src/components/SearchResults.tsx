@@ -1,13 +1,14 @@
 import { Button, Grid, TablePagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { URLSearchParams } from "url";
+import { FilterContext } from "../contexts/FilterContext";
 
 import { ISearchResultResponse } from "../interfaces/interface";
 import { getSearchResults } from "../services/solrSearch";
 import SearchField from "./atoms/SearchField";
 import SearchResult from "./atoms/SearchResult";
 import Paginate from "./molecules/Paginate";
-import { FilterContext } from "./RootView";
 import SearchResultSkeleton from "./SearchResultSkeleton";
 
 const SearchResults = () => {

@@ -9,24 +9,47 @@ import {
 import { Box } from "@mui/system";
 import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import React from "react";
+import React, { useEffect } from "react";
 import { IFilterState, IRootView } from "../interfaces/interface";
 import FilterMenu from "./atoms/FilterMenu";
-
-export const FilterContext = React.createContext<IFilterState>({
-  poi: [],
-  lang: [],
-  country: [],
-});
+import { FilterContext } from "../contexts/FilterContext";
+import { FILTER_OPTIONS } from "../constants";
+import { useLocation, useNavigate } from "react-router";
+import { getFilterString } from "./utils";
 
 const RootView = (props: IRootView) => {
   const hideFilter = props.hideFilter;
   const [open, setOpen] = React.useState(false);
-  const [filters, setFilters] = React.useState<IFilterState>({
-    poi: [],
-    lang: [],
-    country: [],
+  const [filterState, setFilterState] = React.useState<IFilterState>({
+    poi: FILTER_OPTIONS.poi,
+    lang: FILTER_OPTIONS.lang,
+    country: FILTER_OPTIONS.country,
   });
+  const navigate = useNavigate();
+  const { search } = useLocation();
+
+  const handleFilterChange = (
+    filterName: string,
+    name: string,
+    checked: boolean
+  ) => {
+    const newFilterState = { ...filterState };
+    newFilterState[filterName] = newFilterState[filterName].map(
+      (filter: { name: string; value: string; checked: boolean }) => {
+        if (filter.name === name) {
+          filter.checked = checked;
+        }
+        return filter;
+      }
+    );
+    setFilterState(newFilterState);
+
+    // TODO: use navigate to update url
+    const searchParams = new URLSearchParams(search);
+    const query = searchParams.get("q");
+    const filterString = getFilterString(newFilterState);
+    navigate(`/search?q=${query}&${filterString}`);
+  };
 
   const filterClickHandler = () => {
     console.log("filter button clicked");
@@ -38,7 +61,7 @@ const RootView = (props: IRootView) => {
   };
 
   return (
-    <FilterContext.Provider value={filters}>
+    <FilterContext.Provider value={filterState}>
       <Box flexGrow={1}>
         <AppBar position="static">
           <Toolbar>
@@ -99,18 +122,21 @@ const RootView = (props: IRootView) => {
               <Grid item xs={12}>
                 <FilterMenu
                   title="POIs"
-                  handleFilterChange={() => {}}
-                  options={["Joe Biden", "Narendra Modi"]}
-                />
-                <FilterMenu
-                  title="Language"
-                  handleFilterChange={() => {}}
-                  options={["English", "Hindi", "Spanish"]}
+                  filterName="poi"
+                  handleFilterChange={handleFilterChange}
+                  options={filterState.poi}
                 />
                 <FilterMenu
                   title="Country"
-                  handleFilterChange={() => {}}
-                  options={["USA", "India", "Mexico"]}
+                  filterName="country"
+                  handleFilterChange={handleFilterChange}
+                  options={filterState.country}
+                />
+                <FilterMenu
+                  title="Language"
+                  filterName="lang"
+                  handleFilterChange={handleFilterChange}
+                  options={filterState.lang}
                 />
               </Grid>
             </Grid>
