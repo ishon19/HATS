@@ -28,8 +28,10 @@ export interface IPaginate {
   page: number;
   perPage: number;
   total: number;
-  handlePageChange: (page: number) => void;
-  handlePerPageChange: (perPage: number) => void;
+  handlePageChange: (event: any, page: number) => void;
+  handlePerPageChange: (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void;
 }
 
 export interface ISearchResultResponse {
@@ -70,7 +72,7 @@ export interface ITextAnnotation {
   country?: string;
   time?: string;
   verified?: boolean;
-  poiName?: string;
+  poi_name?: string;
   sentiment?: string;
 }
 

@@ -32,7 +32,7 @@ const SearchResult = (props: ISearchResult) => {
             <TextAnnotation
               country={props.annotation.country}
               verified={props.annotation.verified}
-              poiName={props.annotation.poiName}
+              poi_name={props.annotation.poi_name}
               time={props.subtitle}
               sentiment={props.annotation.sentiment}
             />

@@ -37,6 +37,5 @@ def search():
     response_obj = solr_server.search_docs(search_query)
     return jsonify({'data': response_obj})
 
-
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=9999, debug=True)

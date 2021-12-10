@@ -61,90 +61,88 @@ const RootView = (props: IRootView) => {
   };
 
   return (
-    <FilterContext.Provider value={filterState}>
-      <Box flexGrow={1}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6">HATS Search</Typography>
-            <Box
-              sx={{
-                marginLeft: "auto",
-                display: hideFilter ? "none" : "block",
-              }}
-            >
-              <Button
-                variant="text"
-                aria-label="menu"
-                sx={{ color: "white" }}
-                onClick={filterClickHandler}
-              >
-                <FilterAltRoundedIcon />
-                <Typography variant="h6">Filters</Typography>
-              </Button>
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <Box role="presentation">
-          <Drawer
-            anchor="right"
-            open={open}
-            onClose={() => setOpen(false)}
-            PaperProps={{
-              sx: {
-                width: "25%",
-                paddingLeft: "1rem",
-                paddingRight: "1rem",
-                paddingTop: "1rem",
-              },
+    <Box flexGrow={1}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6">HATS Search</Typography>
+          <Box
+            sx={{
+              marginLeft: "auto",
+              display: hideFilter ? "none" : "block",
             }}
           >
-            <Grid container flexDirection="column">
-              <Grid item xs={12}>
-                <Typography variant="h6" fontWeight={600}>
-                  Filters
-                </Typography>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                alignContent="right"
-                display="flex"
-                alignSelf="flex-end"
-              >
-                <CloseRoundedIcon
-                  sx={{ cursor: "pointer" }}
-                  onClick={onDrawerClose}
-                  fontWeight={600}
-                />
-              </Grid>
+            <Button
+              variant="text"
+              aria-label="menu"
+              sx={{ color: "white" }}
+              onClick={filterClickHandler}
+            >
+              <FilterAltRoundedIcon />
+              <Typography variant="h6">Filters</Typography>
+            </Button>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Box role="presentation">
+        <Drawer
+          anchor="right"
+          open={open}
+          onClose={() => setOpen(false)}
+          PaperProps={{
+            sx: {
+              width: "25%",
+              paddingLeft: "1rem",
+              paddingRight: "1rem",
+              paddingTop: "1rem",
+            },
+          }}
+        >
+          <Grid container flexDirection="column">
+            <Grid item xs={12}>
+              <Typography variant="h6" fontWeight={600}>
+                Filters
+              </Typography>
             </Grid>
-            <Grid container direction="column">
-              <Grid item xs={12}>
-                <FilterMenu
-                  title="POIs"
-                  filterName="poi"
-                  handleFilterChange={handleFilterChange}
-                  options={filterState.poi}
-                />
-                <FilterMenu
-                  title="Country"
-                  filterName="country"
-                  handleFilterChange={handleFilterChange}
-                  options={filterState.country}
-                />
-                <FilterMenu
-                  title="Language"
-                  filterName="lang"
-                  handleFilterChange={handleFilterChange}
-                  options={filterState.lang}
-                />
-              </Grid>
+            <Grid
+              item
+              xs={12}
+              alignContent="right"
+              display="flex"
+              alignSelf="flex-end"
+            >
+              <CloseRoundedIcon
+                sx={{ cursor: "pointer" }}
+                onClick={onDrawerClose}
+                fontWeight={600}
+              />
             </Grid>
-          </Drawer>
-        </Box>
-        {props.root}
+          </Grid>
+          <Grid container direction="column">
+            <Grid item xs={12}>
+              <FilterMenu
+                title="POIs"
+                filterName="poi"
+                handleFilterChange={handleFilterChange}
+                options={filterState.poi}
+              />
+              <FilterMenu
+                title="Country"
+                filterName="country"
+                handleFilterChange={handleFilterChange}
+                options={filterState.country}
+              />
+              <FilterMenu
+                title="Language"
+                filterName="lang"
+                handleFilterChange={handleFilterChange}
+                options={filterState.lang}
+              />
+            </Grid>
+          </Grid>
+        </Drawer>
       </Box>
-    </FilterContext.Provider>
+      {props.root}
+    </Box>
   );
 };
 

@@ -32,12 +32,12 @@ export const FILTER_OPTIONS: IFilterState = {
   poi: [
     {
       value: "Narendra Modi",
-      name: "narendramodi",
+      name: "Narendra Modi",
       checked: false,
     },
     {
       value: "Joe Biden",
-      name: "joebiden",
+      name: "Joe Biden",
       checked: false,
     },
   ],
@@ -47,8 +47,8 @@ export const FILTER_OPTIONS: IFilterState = {
     { value: "Spanish", name: "es", checked: false },
   ],
   country: [
-    { value: "India", name: "in", checked: false },
-    { value: "USA", name: "us", checked: false },
-    { value: "Mexico", name: "mx", checked: false },
+    { value: "India", name: "India", checked: false },
+    { value: "USA", name: "USA", checked: false },
+    { value: "Mexico", name: "Mexico", checked: false },
   ],
 };

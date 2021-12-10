@@ -14,18 +14,18 @@ const getFilterString = (filterState: IFilterState): string => {
   let filterString = "";
   filterState.poi.forEach((poi) => {
     if (poi.checked) {
-      filterString += `poi=${poi.value}&`;
+      filterString += `poi=${poi.name}&`;
     }
   });
 
   filterState.lang.forEach((lang) => {
     if (lang.checked) {
-      filterString += `lang=${lang.value}&`;
+      filterString += `lang=${lang.name}&`;
     }
   });
   filterState.country.forEach((country) => {
     if (country.checked) {
-      filterString += `country=${country.value}&`;
+      filterString += `country=${country.name}&`;
     }
   });
   return filterString;
