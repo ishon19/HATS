@@ -11,19 +11,43 @@ import SearchResult from "./atoms/SearchResult";
 import Paginate from "./molecules/Paginate";
 import SearchResultSkeleton from "./SearchResultSkeleton";
 
+const getFilterObj = (params: URLSearchParams) => {
+  const filterObj: { pois: string[]; language: string[]; country: string[] } = {
+    pois: [],
+    language: [],
+    country: [],
+  };
+  const pois = params.getAll("poi") || "";
+  const country = params.getAll("country") || "";
+  const lang = params.getAll("lang") || "";
+
+  filterObj.pois = pois;
+  filterObj.country = country;
+  filterObj.language = lang;
+
+  return filterObj;
+};
+
 const SearchResults = () => {
   const [searchResults, setSearchResults] = useState<ISearchResultResponse[]>(
     []
   );
   const [value, setValue] = useState("");
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
   const [params] = useSearchParams();
-  const searchQuery = (params.get("q") as string) ?? "";
-  console.log(searchQuery);
+  const query = (params.get("q") as string) ?? "";
+  const filters = getFilterObj(params);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data: ISearchResultResponse[] = await getSearchResults(searchQuery);
+      const data: ISearchResultResponse[] = await getSearchResults({
+        query,
+        filters,
+        page_number: page,
+        rows_per_page: rowsPerPage,
+      });
       if (data.length > 0) {
         setSearchResults(data);
         setIsLoading(false);
@@ -31,7 +55,7 @@ const SearchResults = () => {
     };
     setIsLoading(true);
     fetchData();
-  }, [searchQuery]);
+  }, [query, filters, page, rowsPerPage]);
 
   return (
     <FilterContext.Consumer>

@@ -91,3 +91,10 @@ export interface IFilterState {
     checked: boolean;
   }>;
 }
+
+export interface ISearchRequest {
+  query: string;
+  filters: { pois: string[]; language: string[]; country: string[] };
+  page_number: number;
+  rows_per_page: number;
+}
