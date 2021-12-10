@@ -43,6 +43,18 @@ def search():
     response_obj = solr_server.search_docs(search_query, search_filters, search_page, search_rows)
     return jsonify({'data': response_obj})
 
+def get_pois():
+    request_data = request.get_json()
+    num_pois = request_data['num_pois']
+    print("num_pois:" , num_pois)
+
+    solr_server = SolrServer()
+    print("[search] Health check: ", solr_server.solr.ping())
+
+    # search
+    response_obj = solr_server.find_pois(num_pois)
+    return jsonify({'pois_data': response_obj})
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=9999, debug=True)

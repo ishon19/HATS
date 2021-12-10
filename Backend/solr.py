@@ -20,4 +20,9 @@ class SolrServer:
         response = self.solr.search(q=solr_query, **solr_options)
         final_response = SolrUtils.format_response(response)
         return final_response
-    
+
+    def find_pois(self, num_pois):
+        solr_pois = SolrUtils.get_pois_options()
+        response = self.solr.search(q="poi_name:*", **solr_pois).facets['facet_fields']["poi_name"]
+        final_response = SolrUtils.format_pois_response(response, num_pois)
+        return final_response
