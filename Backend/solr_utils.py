@@ -2,6 +2,8 @@
     This file contains the utility methods for solr
 '''
 from sentiment_analyser import SentimentAnalyzer
+import pandas as pd
+#from Get_count_and_plots import GetCount
 
 
 class SolrUtils:
@@ -94,6 +96,16 @@ class SolrUtils:
             temp_doc.append(doc)
             sentimentAnalyser = SentimentAnalyzer(temp_doc)
             doc = sentimentAnalyser.get_sentiment()
+            #counts = GetCount(temp_doc).getCount()
             formatted_response.append(doc)
             print("[format_response] Doc: ", doc)
+        #counts = GetCount(formatted_response).getCount()
         return formatted_response
+    
+    def GetCount(response):
+        dataframe = pd.DataFrame(response)
+        sentiment_counts = dict(dataframe["Sentiment"].value_counts())
+        
+        return sentiment_counts
+
+    

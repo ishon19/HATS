@@ -101,6 +101,7 @@ class SentimentAnalyzer:
             text_analyse = p.tokenizer(
                 self.data[i]["tweet_text"])        
             sentiment = sid.polarity_scores(text_analyse)
+            self.data[i]['sentiment_score'] = sentiment['compound']
             if sentiment["compound"] >= 0.05:
                 self.data[i]["sentiment"] = "Positive"
             elif sentiment["compound"] > -0.05 and sentiment["compound"] < 0.05:
