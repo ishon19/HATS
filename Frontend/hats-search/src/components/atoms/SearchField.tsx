@@ -10,7 +10,7 @@ const SearchField = (props: ISearchField) => {
       freeSolo
       onChange={(event, newValue) => handleChange(event, newValue)}
       disableClearable
-      options={SEARCH_SUGGESTIONS}
+      options={props.options || SEARCH_SUGGESTIONS}
       renderInput={(params) => (
         <TextField
           {...params}

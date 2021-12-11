@@ -16,6 +16,7 @@ export interface ISearchField {
       | React.SyntheticEvent<Element, Event>,
     value: string
   ) => void;
+  options?: string[];
 }
 
 export interface ISearchResult {
@@ -74,6 +75,9 @@ export interface ITextAnnotation {
   verified?: boolean;
   poi_name?: string;
   sentiment?: string;
+  id?: string;
+  poi_id?: string;
+  sentiment_score?: number;
 }
 
 export interface IFilterState {
@@ -99,4 +103,8 @@ export interface ISearchRequest {
   filters: { pois: string[]; language: string[]; country: string[] };
   page_number: number;
   rows_per_page: number;
+}
+
+export interface ICovidStatsByCountry {
+  country: string;
 }

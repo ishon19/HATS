@@ -12,9 +12,9 @@ const getSearchResults = async (props: ISearchRequest) => {
     page_number,
     rows_per_page,
   });
-  
+
   console.log("[solrSearch]", response);
-  return response.data.data;
+  return { data: response.data.data, count: response.data.total_data };
 };
 
 export { getSearchResults };

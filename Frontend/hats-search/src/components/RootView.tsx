@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
+import BarChartRoundedIcon from '@mui/icons-material/BarChartRounded';
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import React, { useEffect } from "react";
 import { IFilterState, IRootView } from "../interfaces/interface";
@@ -61,6 +62,10 @@ const RootView = (props: IRootView) => {
     setOpen(false);
   };
 
+  useEffect(() => {
+    // fetch the top POIs
+  },[])
+
   return (
     <Box flexGrow={1}>
       <AppBar position="static">
@@ -76,6 +81,17 @@ const RootView = (props: IRootView) => {
               display: hideFilter ? "none" : "block",
             }}
           >
+            <Button variant="text" aria-label="menu" sx={{ color: "white" }}>
+              <BarChartRoundedIcon />
+              <Typography variant="h6">
+                <Link
+                  to="/insights"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  Insights
+                </Link>
+              </Typography>
+            </Button>
             <Button
               variant="text"
               aria-label="menu"

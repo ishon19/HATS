@@ -14,6 +14,7 @@ import TextAnnotation from "../molecules/TextAnnotation";
 import { cardStyles } from "../styles/card-styles";
 import { getColorBySentiment } from "../utils";
 import { GoVerified } from "react-icons/go";
+import { Box } from "@mui/system";
 
 const SearchResult = (props: ISearchResult) => {
   const classes = cardStyles();
@@ -24,17 +25,39 @@ const SearchResult = (props: ISearchResult) => {
       <CardContent>
         <Stack spacing={1}>
           <Typography variant="h6" className={classes.title}>
-            <Link
+            {/* <Link
               className={classes.link}
-              to="/search-details"
+              to={""}
               style={{
                 color: getColorBySentiment(
                   props.annotation.sentiment?.toLowerCase() || "neutral"
                 ),
               }}
-            >
-              {props.title}
-            </Link>
+            > */}
+            {props.annotation.poi_id ? (
+              <a
+                style={{
+                  color: getColorBySentiment(
+                    props.annotation.sentiment?.toLowerCase() || "neutral"
+                  ),
+                }}
+                href={`https://twitter.com/${props.annotation.poi_id}/status/${props.annotation.id}`}
+                target="_blank"
+              >
+                {props.title}
+              </a>
+            ) : (
+              <Box
+                style={{
+                  color: getColorBySentiment(
+                    props.annotation.sentiment?.toLowerCase() || "neutral"
+                  ),
+                }}
+              >
+                {props.title}
+              </Box>
+            )}
+            {/* </Link> */}
             {props.annotation.verified && (
               <GoVerified
                 style={{
@@ -52,6 +75,7 @@ const SearchResult = (props: ISearchResult) => {
               poi_name={props.annotation.poi_name}
               time={props.subtitle}
               sentiment={props.annotation.sentiment}
+              sentiment_score={props.annotation.sentiment_score}
             />
           </Typography>
         </Stack>
