@@ -63,6 +63,16 @@ def get_poi_tweet_counts():
     response_obj = solr_server.find_poi_counts()
     return jsonify({'pois_tweet_count_data': response_obj})
 
+
+def get_poi_sentiments():
+    print("Getting Poi sentiments")
+    request_data = request.get_json()
+    poi_name = request_data['poi_name']
+    solr_server = SolrServer()
+    print("[search] Health check: ", solr_server.solr.ping())
+    response_obj = solr_server.find_poi_sentiments(poi_name)
+    return jsonify({'poi_sentiments': response_obj})
+
 @app.route('/get-replies', methods=['POST'])
 @cross_origin()
 def insights():

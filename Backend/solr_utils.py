@@ -41,6 +41,9 @@ class SolrUtils:
         '''
         modified_query = 'country:' + country
         return modified_query
+    
+    def get_poi_query(self, poi_name):
+        return 'poi_name:\"' + poi_name + "\""
         
     def get_options(filters, page, row):
         # parse for the filters
@@ -118,3 +121,17 @@ class SolrUtils:
             formatted_response.append(doc)
             print("[format_response] Doc: ", doc)
         return formatted_response
+    
+    def sentiment_counts(response):
+        sentiment_counts = {"Positive": 0, "Neutral": 0, "Negative": 0}
+
+        for doc in response:
+            temp_doc = []
+            temp_doc.append(doc)
+            sentimentAnalyser = SentimentAnalyzer(temp_doc)
+            doc = sentimentAnalyser.get_sentiment_counts()
+            sentiment_counts["Positive"] += doc["Positive"]
+            sentiment_counts["Neutral"] += doc["Neutral"]
+            sentiment_counts["Negative"] += doc["Negative"]
+            
+        return sentiment_counts
