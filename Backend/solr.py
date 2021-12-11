@@ -35,11 +35,11 @@ class SolrServer:
         final_response = SolrUtils.format_response(response)
         print("[search_all] Response: ", final_response)
         count_positives = len(
-            [i for i in final_response if i['sentiment'] == 'Positive'])
+            [i for i in final_response if i[0]['sentiment'] == 'Positive'])
         count_negatives = len(
-            [i for i in final_response if i['sentiment'] == 'Negative'])
+            [i for i in final_response if i[0]['sentiment'] == 'Negative'])
         count_neutral = len(
-            [i for i in final_response if i['sentiment'] == 'Neutral'])
+            [i for i in final_response if i[0]['sentiment'] == 'Neutral'])
         
         return {"positive": count_positives, "negative": count_negatives, "neutral": count_neutral}
 
