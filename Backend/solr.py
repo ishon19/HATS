@@ -32,7 +32,7 @@ class SolrServer:
     def search_all(self):
         solr_query = SolrUtils.get_select_all_query()
         options = {
-            'start': 0, 'rows': 170000
+            'start': 0, 'rows': 1700
         }
         response = self.solr.search(q=solr_query, **options)
         final_response = SolrUtils.format_response(response)
