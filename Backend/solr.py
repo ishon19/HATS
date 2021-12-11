@@ -55,3 +55,12 @@ class SolrServer:
         response = self.solr.search(q="poi_name:*", **solr_pois).facets['facet_fields']["poi_name"]
         final_response = SolrUtils.format_pois_response(response)
         return final_response
+
+    def find_poi_sentiments(self, poi_name):
+        formatted_poi_query = SolrUtils.get_poi_query(poi_name)
+        hits = self.solr.search(q=formatted_poi_query, start = 0, rows = 0).hits
+        response = self.solr.search(q=formatted_poi_query, start = 0, rows = hits, fl = "tweet_text")
+        final_response = SolrUtils.sentiment_counts(response)
+        return final_response
+        
+    
