@@ -31,9 +31,10 @@ class SolrServer:
 
     def search_all(self):
         solr_query = SolrUtils.get_select_all_query()
-        response = self.solr.search(solr_query, {
-            "start": 1, "rows": 170000
-        })
+        options = {
+            'start': 0, 'rows': 170000
+        }
+        response = self.solr.search(q=solr_query, **options)
         final_response = SolrUtils.format_response(response)
         print("[search_all] Response: ", final_response)
         count_positives = len(
