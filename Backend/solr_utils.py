@@ -102,7 +102,7 @@ class SolrUtils:
                 formatted_response[response[i]] = response[i+1]
         return formatted_response #returns all pois to their tweet counts
     
-    def top_n_pois(self, response, num_pois):
+    def top_n_pois(response, num_pois):
         formatted_response = []
         for (k,v) in response.items():
             formatted_response.append(k)

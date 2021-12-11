@@ -40,8 +40,7 @@ def search():
     print("[search] Health check: ", solr_server.solr.ping())
 
     # search
-    response_obj, hits = solr_server.search_docs(
-        search_query, search_filters, search_page, search_rows)
+    response_obj, hits = solr_server.search_docs(search_query, search_filters, search_page, search_rows)
     return jsonify({'data': response_obj, 'total_data': hits})
 
 
@@ -80,7 +79,6 @@ def get_poi_sentiments():
     response_obj = solr_server.find_poi_sentiments(poi_name)
     return jsonify({'poi_sentiments': response_obj})
 
-
 @app.route('/get-replies', methods=['POST'])
 @cross_origin()
 def insights():
@@ -102,15 +100,14 @@ def insights():
     return jsonify({'data': response_obj})
 
 
-@app.route('/get-language-dist', methods=['POST'])
+@app.route('/get-language-dist', methods=['GET'])
 @cross_origin()
 def get_language_distribution():
     '''
     Return the number of hits of a particular language in a search.
     '''
-    request_data = request.get_json()
-    lang = request_data['tweet_lang']
-    print("Language: ", lang)
+    languages = ["en", "hi", "es"]
+    print("Getting Language Distribution")
 
     # search the term
     solr_server = SolrServer()
@@ -118,20 +115,23 @@ def get_language_distribution():
     # health check
     print("[search] Health check: ", solr_server.solr.ping())
 
-    # search
-    response_obj = solr_server.search_lang(lang)
-    return jsonify({'data': response_obj})
+    dist = {}
+
+    for lang in languages:
+        # search
+        response_obj = solr_server.search_lang(lang)
+        dist[lang] = response_obj
+    return jsonify({'data': dist})
 
 
-@app.route('/get-country-dist', methods=['POST'])
+@app.route('/get-country-dist', methods=['GET'])
 @cross_origin()
 def get_country_distribution():
     '''
     Return the number of hits of a particular country in a search.
     '''
-    request_data = request.get_json()
-    country = request_data['country']
-    print("Country: ", country)
+    countries = ["USA", "India", "Mexico"]
+    print("Getting Country Distribution")
 
     # search the term
     solr_server = SolrServer()
@@ -139,10 +139,13 @@ def get_country_distribution():
     # health check
     print("[search] Health check: ", solr_server.solr.ping())
 
-    # search
-    response_obj = solr_server.search_country(country)
-    return jsonify({'data': response_obj})
+    dist = {}
 
+    for country in countries:
+        # search
+        response_obj = solr_server.search_country(country)
+        dist[country]= response_obj
+    return jsonify({'data': dist})
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=9999, debug=True)
