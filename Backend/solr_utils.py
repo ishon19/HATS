@@ -44,7 +44,7 @@ class SolrUtils:
         modified_query = 'country:' + country
         return modified_query
     
-    def get_poi_query(self, poi_name):
+    def get_poi_query(poi_name):
         return 'poi_name:\"' + poi_name + "\""
         
     def get_options(filters, page, row):
