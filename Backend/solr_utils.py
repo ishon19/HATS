@@ -25,6 +25,20 @@ class SolrUtils:
         '''
         modified_query = 'replied_to_tweet_id:' + tweet_id
         return modified_query
+
+    def get_lang_counts(lang):
+        '''
+            return the query string to tweets in a particular language
+        '''
+        modified_query = 'tweet_lang:' + lang
+        return modified_query
+
+    def get_country_counts(country):
+        '''
+            return the query string to tweets in a particular language
+        '''
+        modified_query = 'country:' + country
+        return modified_query
         
     def get_options(filters, page, row):
         # parse for the filters
