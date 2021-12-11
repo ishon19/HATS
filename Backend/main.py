@@ -55,6 +55,8 @@ def get_pois():
     response_obj = solr_server.find_pois(num_pois)
     return jsonify({'pois_data': response_obj, 'len_pois_data':len(response_obj)})
 
+@app.route('/get-pois-tweet-count', methods=['GET'])
+@cross_origin()
 def get_poi_tweet_counts():
     print("Getting Poi tweet counts")
     solr_server = SolrServer()
