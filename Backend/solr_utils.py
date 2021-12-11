@@ -102,5 +102,5 @@ class SolrUtils:
             sentimentAnalyser = SentimentAnalyzer(temp_doc)
             doc = sentimentAnalyser.get_sentiment()
             formatted_response.append(doc)
-            print("[format_response] Doc: ", doc)
+            # print("[format_response] Doc: ", doc)
         return formatted_response
