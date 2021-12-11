@@ -1,6 +1,8 @@
 '''
     This file contains the utility methods for solr
 '''
+from collections import OrderedDict
+
 from sentiment_analyser import SentimentAnalyzer
 import pandas as pd
 #from Get_count_and_plots import GetCount
@@ -26,6 +28,20 @@ class SolrUtils:
             return the query string to fetch reply tweets
         '''
         modified_query = 'replied_to_tweet_id:' + tweet_id
+        return modified_query
+
+    def get_lang_counts(lang):
+        '''
+            return the query string to tweets in a particular language
+        '''
+        modified_query = 'tweet_lang:' + lang
+        return modified_query
+
+    def get_country_counts(country):
+        '''
+            return the query string to tweets in a particular language
+        '''
+        modified_query = 'country:' + country
         return modified_query
         
     def get_options(filters, page, row):
@@ -76,16 +92,21 @@ class SolrUtils:
         }
         return options
 
-    def format_pois_response(self, response, num_pois):
-        formatted_response = []
+    def format_pois_response(self, response):
+        formatted_response = OrderedDict()
         for i in range(len(response)):
             if (i % 2 == 0):
-                formatted_response.append(response[i])
-            if (len(formatted_response) == num_pois):
+                formatted_response[response[i]] = response[i+1]
+        return formatted_response #returns all pois to their tweet counts
+    
+    def top_n_pois(self, response, num_pois):
+        formatted_response = []
+        for (k,v) in response.items():
+            formatted_response.append(k)
+            if(len(formatted_response) == num_pois):
                 break
-        print("Top", num_pois, "pois is", formatted_response)
         return formatted_response
-
+    
     def format_response(response):
         '''
             format the response

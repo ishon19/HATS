@@ -29,9 +29,30 @@ class SolrServer:
         response = self.solr.search(solr_query)
         final_response = SolrUtils.format_response(response)
         return final_response
+
+    def search_lang(self, lang):
+        print("[search_docs] Search Language: ", lang)
+        solr_query = SolrUtils.get_lang_counts(lang)
+        response = self.solr.search(solr_query)
+        hits = response.hits
+        return hits
+
+    def search_country(self, country):
+        print("[search_docs] Search Country: ", country)
+        solr_query = SolrUtils.get_country_counts(country)
+        response = self.solr.search(solr_query)
+        hits = response.hits
+        return hits
         
     def find_pois(self, num_pois):
         solr_pois = SolrUtils.get_pois_options()
         response = self.solr.search(q="poi_name:*", **solr_pois).facets['facet_fields']["poi_name"]
-        final_response = SolrUtils.format_pois_response(response, num_pois)
+        mid_response = SolrUtils.format_pois_response(response)
+        final_response = SolrUtils.top_n_pois(mid_response, num_pois)
+        return final_response
+    
+    def find_poi_counts(self):
+        solr_pois = SolrUtils.get_pois_options()
+        response = self.solr.search(q="poi_name:*", **solr_pois).facets['facet_fields']["poi_name"]
+        final_response = SolrUtils.format_pois_response(response)
         return final_response

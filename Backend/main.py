@@ -49,14 +49,19 @@ def get_pois():
     request_data = request.get_json()
     num_pois = request_data['num_pois']
     print("num_pois:" , num_pois)
-
     solr_server = SolrServer()
     print("[search] Health check: ", solr_server.solr.ping())
-
     # search
     response_obj = solr_server.find_pois(num_pois)
     return jsonify({'pois_data': response_obj, 'len_pois_data':len(response_obj)})
 
+def get_poi_tweet_counts():
+    print("Getting Poi tweet counts")
+    solr_server = SolrServer()
+    print("[search] Health check: ", solr_server.solr.ping())
+    # search
+    response_obj = solr_server.find_poi_counts()
+    return jsonify({'pois_tweet_count_data': response_obj})
 
 @app.route('/get-replies', methods=['POST'])
 @cross_origin()
@@ -76,6 +81,48 @@ def insights():
 
     # search
     response_obj = solr_server.search_replies(search_id)
+    return jsonify({'data': response_obj})
+
+
+@app.route('/get-language-dist', methods=['POST'])
+@cross_origin()
+def get_language_distribution():
+    '''
+    Return the number of hits of a particular language in a search.
+    '''
+    request_data = request.get_json()
+    lang = request_data['tweet_lang']
+    print("Language: ", lang)
+
+    # search the term
+    solr_server = SolrServer()
+
+    # health check
+    print("[search] Health check: ", solr_server.solr.ping())
+
+    # search
+    response_obj = solr_server.search_lang(lang)
+    return jsonify({'data': response_obj})
+
+
+@app.route('/get-country-dist', methods=['POST'])
+@cross_origin()
+def get_country_distribution():
+    '''
+    Return the number of hits of a particular country in a search.
+    '''
+    request_data = request.get_json()
+    country = request_data['country']
+    print("Country: ", country)
+
+    # search the term
+    solr_server = SolrServer()
+
+    # health check
+    print("[search] Health check: ", solr_server.solr.ping())
+
+    # search
+    response_obj = solr_server.search_country(country)
     return jsonify({'data': response_obj})
 
 if __name__ == '__main__':
