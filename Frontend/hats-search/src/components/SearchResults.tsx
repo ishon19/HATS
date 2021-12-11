@@ -87,7 +87,12 @@ const SearchResults = () => {
       <Grid item xs={12} sx={{ width: "100%" }}>
         <Grid container direction="row">
           <Grid item xs={10}>
-            <SearchField handleChange={() => {}} value="" />
+            <SearchField
+              handleChange={(_e, value) => {
+                setValue(value);
+              }}
+              value=""
+            />
           </Grid>
           <Grid item xs={2}>
             <Link
