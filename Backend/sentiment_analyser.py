@@ -83,6 +83,10 @@ class Preprocessor:
             word = self.ps.stem(word)
             final_stemmed_tokens.append(word)
 
+        if final_stemmed_tokens[0] == 'rt':
+          final_stemmed_tokens = final_stemmed_tokens[1:]
+
+
         final_text = " ".join(final_stemmed_tokens)
 
         return final_text
