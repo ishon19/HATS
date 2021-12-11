@@ -26,7 +26,7 @@ class SolrUtils:
         modified_query = 'replied_to_tweet_id:' + tweet_id
         return modified_query
 
-    def get_select_all_query(tweet_id):
+    def get_select_all_query():
         '''
             return the select all query
         '''

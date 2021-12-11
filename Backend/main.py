@@ -78,7 +78,7 @@ def insights():
     response_obj = solr_server.search_replies(search_id)
     return jsonify({'data': response_obj})
 
-@app.route('/colletionSentiment', methods=['POST'])
+@app.route('/collectionSentiment', methods=['GET'])
 @cross_origin()
 def collectionSentiment():
     '''
