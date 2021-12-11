@@ -110,3 +110,18 @@ class SentimentAnalyzer:
                 self.data[i]["sentiment"] = "Negative"
             sentiment = None
         return self.data
+    
+    def get_sentiment_counts(self):
+        sentiment_counts = {"Positive": 0, "Neutral":0, "Negative": 0}
+        p = Preprocessor()
+        sid = SentimentIntensityAnalyzer()
+        for i in range(len(self.data)):
+            text_analyse = p.tokenizer(self.data[i]["tweet_text"])
+            sentiment = sid.polarity_scores(text_analyse)
+            if sentiment["compound"] >= 0.05:
+                sentiment_counts["Positive"] += 1
+            elif sentiment["compound"] > -0.05 and sentiment["compound"] < 0.05:
+                sentiment_counts["Neutral"] += 1
+            elif sentiment["compound"] <= -0.05:
+                sentiment_counts["Negative"] += 1
+        return sentiment_counts
