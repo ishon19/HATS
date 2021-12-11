@@ -46,5 +46,12 @@ class SolrServer:
     def find_pois(self, num_pois):
         solr_pois = SolrUtils.get_pois_options()
         response = self.solr.search(q="poi_name:*", **solr_pois).facets['facet_fields']["poi_name"]
-        final_response = SolrUtils.format_pois_response(response, num_pois)
+        mid_response = SolrUtils.format_pois_response(response)
+        final_response = SolrUtils.top_n_pois(mid_response, num_pois)
+        return final_response
+    
+    def find_poi_counts(self):
+        solr_pois = SolrUtils.get_pois_options()
+        response = self.solr.search(q="poi_name:*", **solr_pois).facets['facet_fields']["poi_name"]
+        final_response = SolrUtils.format_pois_response(response)
         return final_response

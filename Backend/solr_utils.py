@@ -1,6 +1,8 @@
 '''
     This file contains the utility methods for solr
 '''
+from collections import OrderedDict
+
 from sentiment_analyser import SentimentAnalyzer
 
 
@@ -88,16 +90,21 @@ class SolrUtils:
         }
         return options
 
-    def format_pois_response(self, response, num_pois):
-        formatted_response = []
+    def format_pois_response(self, response):
+        formatted_response = OrderedDict()
         for i in range(len(response)):
             if (i % 2 == 0):
-                formatted_response.append(response[i])
-            if (len(formatted_response) == num_pois):
+                formatted_response[response[i]] = response[i+1]
+        return formatted_response #returns all pois to their tweet counts
+    
+    def top_n_pois(self, response, num_pois):
+        formatted_response = []
+        for (k,v) in response.items():
+            formatted_response.append(k)
+            if(len(formatted_response) == num_pois):
                 break
-        print("Top", num_pois, "pois is", formatted_response)
         return formatted_response
-
+    
     def format_response(response):
         '''
             format the response

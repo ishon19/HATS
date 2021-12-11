@@ -49,14 +49,19 @@ def get_pois():
     request_data = request.get_json()
     num_pois = request_data['num_pois']
     print("num_pois:" , num_pois)
-
     solr_server = SolrServer()
     print("[search] Health check: ", solr_server.solr.ping())
-
     # search
     response_obj = solr_server.find_pois(num_pois)
     return jsonify({'pois_data': response_obj, 'len_pois_data':len(response_obj)})
 
+def get_poi_tweet_counts():
+    print("Getting Poi tweet counts")
+    solr_server = SolrServer()
+    print("[search] Health check: ", solr_server.solr.ping())
+    # search
+    response_obj = solr_server.find_poi_counts()
+    return jsonify({'pois_tweet_count_data': response_obj})
 
 @app.route('/get-replies', methods=['POST'])
 @cross_origin()
