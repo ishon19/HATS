@@ -25,7 +25,14 @@ class SolrUtils:
         '''
         modified_query = 'replied_to_tweet_id:' + tweet_id
         return modified_query
-        
+
+    def get_select_all_query(tweet_id):
+        '''
+            return the select all query
+        '''
+        query = '*:*'
+        return query
+
     def get_options(filters, page, row):
         # parse for the filters
         # Note: assuming 10 rows for page
@@ -56,7 +63,7 @@ class SolrUtils:
                 temp += 'tweet_lang:\"' + f + '\" OR '
             temp = temp[:-4]
             filt.append(temp)
-    
+
         options = {
             "start": start,
             "rows": rows

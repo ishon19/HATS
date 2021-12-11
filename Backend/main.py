@@ -78,5 +78,21 @@ def insights():
     response_obj = solr_server.search_replies(search_id)
     return jsonify({'data': response_obj})
 
+@app.route('/colletionSentiment', methods=['POST'])
+@cross_origin()
+def collectionSentiment():
+    '''
+    Return the sentiment of the collection
+    '''
+    # search the term
+    solr_server = SolrServer()
+
+    # health check
+    print("[search] Health check: ", solr_server.solr.ping())
+
+    # search
+    response_obj = solr_server.search_all()
+    return jsonify({'data': response_obj})
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=9999, debug=True)
