@@ -40,8 +40,8 @@ def search():
     print("[search] Health check: ", solr_server.solr.ping())
 
     # search
-    response_obj = solr_server.search_docs(search_query, search_filters, search_page, search_rows)
-    return jsonify({'data': response_obj, 'len_data':len(response_obj)})
+    response_obj, hits = solr_server.search_docs(search_query, search_filters, search_page, search_rows)
+    return jsonify({'data': response_obj, 'total_data': hits})
 
 @app.route('/get-pois', methods=['POST'])
 @cross_origin()

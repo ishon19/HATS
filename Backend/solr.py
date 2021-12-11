@@ -18,8 +18,9 @@ class SolrServer:
         solr_query = SolrUtils.get_solr_query(query)
         solr_options = SolrUtils.get_options(filters, page, rows)
         response = self.solr.search(q=solr_query, **solr_options)
+        hits = response.hits
         final_response = SolrUtils.format_response(response)
-        return final_response
+        return final_response, hits
 
     def search_replies(self, tweet_id):
         print("[search_docs] Search Tweet ID: ", tweet_id)
