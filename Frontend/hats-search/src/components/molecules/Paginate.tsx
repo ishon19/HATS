@@ -9,22 +9,29 @@ const useStyles = makeStyles({
     bottom: 0,
     left: 0,
     backgroundColor: "#eeeeee",
+    zIndex: 100,
   },
 });
 
 const Paginate = (props: IPaginate) => {
   const classes = useStyles();
+  const { page, perPage, total, handlePageChange, handlePerPageChange } = props;
 
   return (
-    <Grid container direction="row" className={classes.root} flexDirection="row-reverse">
+    <Grid
+      container
+      direction="row"
+      className={classes.root}
+      flexDirection="row-reverse"
+    >
       <Grid item>
         <TablePagination
           component="div"
-          count={100}
-          page={1}
-          onPageChange={() => {}}
-          rowsPerPage={10}
-          onRowsPerPageChange={() => {}}
+          count={total}
+          page={page}
+          onPageChange={handlePageChange}
+          rowsPerPage={perPage}
+          onRowsPerPageChange={handlePerPageChange}
         />
       </Grid>
     </Grid>
