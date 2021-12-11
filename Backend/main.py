@@ -41,7 +41,7 @@ def search():
 
     # search
     response_obj = solr_server.search_docs(search_query, search_filters, search_page, search_rows)
-    return jsonify({'data': response_obj})
+    return jsonify({'data': response_obj, 'len_data':len(response_obj)})
 
 @app.route('/get-pois', methods=['POST'])
 @cross_origin()
@@ -55,7 +55,7 @@ def get_pois():
 
     # search
     response_obj = solr_server.find_pois(num_pois)
-    return jsonify({'pois_data': response_obj})
+    return jsonify({'pois_data': response_obj, 'len_pois_data':len(response_obj)})
 
 
 @app.route('/get-replies', methods=['POST'])
