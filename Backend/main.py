@@ -24,7 +24,7 @@ def search():
     Return the results of a search.
     '''
     request_data = request.get_json()
-    search_query =request_data['query']
+    search_query = request_data['query']
     search_filters = request_data['filters']
     search_page = request_data['page_number']
     search_rows = request_data['rows_per_page']
@@ -40,20 +40,23 @@ def search():
     print("[search] Health check: ", solr_server.solr.ping())
 
     # search
-    response_obj, hits = solr_server.search_docs(search_query, search_filters, search_page, search_rows)
+    response_obj, hits = solr_server.search_docs(
+        search_query, search_filters, search_page, search_rows)
     return jsonify({'data': response_obj, 'total_data': hits})
+
 
 @app.route('/get-pois', methods=['POST'])
 @cross_origin()
 def get_pois():
     request_data = request.get_json()
     num_pois = request_data['num_pois']
-    print("num_pois:" , num_pois)
+    print("num_pois:", num_pois)
     solr_server = SolrServer()
     print("[search] Health check: ", solr_server.solr.ping())
     # search
     response_obj = solr_server.find_pois(num_pois)
-    return jsonify({'pois_data': response_obj, 'len_pois_data':len(response_obj)})
+    return jsonify({'pois_data': response_obj, 'len_pois_data': len(response_obj)})
+
 
 @app.route('/get-pois-tweet-count', methods=['GET'])
 @cross_origin()
@@ -66,6 +69,8 @@ def get_poi_tweet_counts():
     return jsonify({'pois_tweet_count_data': response_obj})
 
 
+@app.route('/get-pois-tweet-sentiment', methods=['POST'])
+@cross_origin()
 def get_poi_sentiments():
     print("Getting Poi sentiments")
     request_data = request.get_json()
@@ -74,6 +79,7 @@ def get_poi_sentiments():
     print("[search] Health check: ", solr_server.solr.ping())
     response_obj = solr_server.find_poi_sentiments(poi_name)
     return jsonify({'poi_sentiments': response_obj})
+
 
 @app.route('/get-replies', methods=['POST'])
 @cross_origin()
@@ -136,6 +142,7 @@ def get_country_distribution():
     # search
     response_obj = solr_server.search_country(country)
     return jsonify({'data': response_obj})
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=9999, debug=True)
