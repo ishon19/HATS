@@ -5,6 +5,7 @@ import React from "react";
 export interface IRootView {
   root: JSX.Element;
   hideFilter?: boolean;
+  viewName?: string;
 }
 
 export interface ISearchField {
@@ -27,8 +28,10 @@ export interface IPaginate {
   page: number;
   perPage: number;
   total: number;
-  handlePageChange: (page: number) => void;
-  handlePerPageChange: (perPage: number) => void;
+  handlePageChange: (event: any, page: number) => void;
+  handlePerPageChange: (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void;
 }
 
 export interface ISearchResultResponse {
@@ -48,14 +51,20 @@ export interface ISearchResultResponse {
 }
 
 export interface IFilterMenu {
-  handleFilterChange: (filter: string) => void;
+  filterName: string;
+  handleFilterChange: (
+    filterName: string,
+    name: string,
+    checked: boolean
+  ) => void;
   title: string;
-  options: string[];
+  options: Array<{ name: string; value: string; checked: boolean }>;
 }
 
 export interface ICheckboxWithTitle {
   title: string;
   name: string;
+  checked: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -63,6 +72,31 @@ export interface ITextAnnotation {
   country?: string;
   time?: string;
   verified?: boolean;
-  poiName?: string;
+  poi_name?: string;
   sentiment?: string;
+}
+
+export interface IFilterState {
+  poi: Array<{
+    name: string;
+    value: string;
+    checked: boolean;
+  }>;
+  lang: Array<{
+    name: string;
+    value: string;
+    checked: boolean;
+  }>;
+  country: Array<{
+    name: string;
+    value: string;
+    checked: boolean;
+  }>;
+}
+
+export interface ISearchRequest {
+  query: string;
+  filters: { pois: string[]; language: string[]; country: string[] };
+  page_number: number;
+  rows_per_page: number;
 }

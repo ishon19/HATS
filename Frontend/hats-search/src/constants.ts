@@ -1,5 +1,7 @@
 // This file contains the constants used in the application
 
+import { IFilterState } from "./interfaces/interface";
+
 export const SEARCH_IMAGE_URL =
   "https://img.icons8.com/cute-clipart/64/000000/twitter.png";
 
@@ -25,3 +27,28 @@ export const SEARCH_SUGGESTIONS = [
   "Virus",
   "Coronavirus",
 ];
+
+export const FILTER_OPTIONS: IFilterState = {
+  poi: [
+    {
+      value: "Narendra Modi",
+      name: "Narendra Modi",
+      checked: false,
+    },
+    {
+      value: "Joe Biden",
+      name: "Joe Biden",
+      checked: false,
+    },
+  ],
+  lang: [
+    { value: "English", name: "en", checked: false },
+    { value: "Hindi", name: "hi", checked: false },
+    { value: "Spanish", name: "es", checked: false },
+  ],
+  country: [
+    { value: "India", name: "India", checked: false },
+    { value: "USA", name: "USA", checked: false },
+    { value: "Mexico", name: "Mexico", checked: false },
+  ],
+};

@@ -6,13 +6,27 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React from "react";
-import themeOptions from "../../theme/theme";
+import { FILTER_OPTIONS } from "../../constants";
 import { IFilterMenu } from "../../interfaces/interface";
 import CheckBoxWithTitle from "./CheckBoxWithTitle";
 
 const FilterMenu = (props: IFilterMenu) => {
-  const onCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Checkbox ", event.target.name, event.target.checked);
+  const onCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    filterName: string
+  ) => {
+    console.log(
+      "FilterName: ",
+      filterName,
+      "Checkbox ",
+      event.target.name,
+      event.target.checked
+    );
+    props.handleFilterChange(
+      filterName,
+      event.target.name,
+      event.target.checked
+    );
   };
 
   return (
@@ -23,13 +37,16 @@ const FilterMenu = (props: IFilterMenu) => {
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        {props.options.map((option, index) => {
+        {props.options.map((option) => {
+          const filterName = props.filterName;
+
           return (
             <CheckBoxWithTitle
-              key={index}
-              name={option}
-              title={option}
-              onChange={onCheckboxChange}
+              key={option.name}
+              name={option.name}
+              title={option.value}
+              checked={option.checked}
+              onChange={(event) => onCheckboxChange(event, filterName)}
             />
           );
         })}
