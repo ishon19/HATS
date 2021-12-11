@@ -81,7 +81,7 @@ class SolrUtils:
         }
         return options
 
-    def format_pois_response(self, response, num_pois):
+    def format_pois_response(response, num_pois):
         formatted_response = []
         for i in range(len(response)):
             if (i % 2 == 0):
