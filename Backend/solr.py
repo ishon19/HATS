@@ -31,7 +31,9 @@ class SolrServer:
 
     def search_all(self):
         solr_query = SolrUtils.get_select_all_query()
-        response = self.solr.search(solr_query)
+        response = self.solr.search(solr_query, {
+            "start": 1, "rows": 170000
+        })
         final_response = SolrUtils.format_response(response)
         print("[search_all] Response: ", final_response)
         count_positives = len(
@@ -40,7 +42,7 @@ class SolrServer:
             [i for i in final_response if i[0]['sentiment'] == 'Negative'])
         count_neutral = len(
             [i for i in final_response if i[0]['sentiment'] == 'Neutral'])
-        
+
         return {"positive": count_positives, "negative": count_negatives, "neutral": count_neutral}
 
     def find_pois(self, num_pois):
