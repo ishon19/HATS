@@ -16,6 +16,7 @@ import { FilterContext } from "../contexts/FilterContext";
 import { FILTER_OPTIONS } from "../constants";
 import { useLocation, useNavigate } from "react-router";
 import { getFilterString } from "./utils";
+import { Link } from "react-router-dom";
 
 const RootView = (props: IRootView) => {
   const hideFilter = props.hideFilter;
@@ -64,7 +65,11 @@ const RootView = (props: IRootView) => {
     <Box flexGrow={1}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6">HATS Search</Typography>
+          <Typography variant="h6">
+            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+              HATS Search
+            </Link>
+          </Typography>
           <Box
             sx={{
               marginLeft: "auto",
