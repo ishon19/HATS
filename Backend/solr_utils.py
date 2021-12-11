@@ -72,7 +72,7 @@ class SolrUtils:
             options["fq"] = filt
         return options
 
-    def get_pois_options(self):
+    def get_pois_options():
         options = {
             'start': 0,
             'rows': 0,
