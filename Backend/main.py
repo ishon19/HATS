@@ -40,8 +40,7 @@ def search():
     print("[search] Health check: ", solr_server.solr.ping())
 
     # search
-    response_obj, hits = solr_server.search_docs(
-        search_query, search_filters, search_page, search_rows)
+    response_obj, hits = solr_server.search_docs(search_query, search_filters, search_page, search_rows)
     return jsonify({'data': response_obj, 'total_data': hits})
 
 
@@ -79,7 +78,6 @@ def get_poi_sentiments():
     print("[search] Health check: ", solr_server.solr.ping())
     response_obj = solr_server.find_poi_sentiments(poi_name)
     return jsonify({'poi_sentiments': response_obj})
-
 
 @app.route('/get-replies', methods=['POST'])
 @cross_origin()
@@ -142,7 +140,6 @@ def get_country_distribution():
     # search
     response_obj = solr_server.search_country(country)
     return jsonify({'data': response_obj})
-
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=9999, debug=True)

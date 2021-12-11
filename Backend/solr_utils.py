@@ -86,23 +86,14 @@ class SolrUtils:
             options["fq"] = filt
         return options
 
-    def get_pois_options(self):
-        options = {
-            'start': 0,
-            'rows': 0,
-            "facet": "true",
-            "facet.field": "poi_name"
-        }
-        return options
-
-    def format_pois_response(self, response):
+    def format_pois_response(response):
         formatted_response = OrderedDict()
         for i in range(len(response)):
             if (i % 2 == 0):
                 formatted_response[response[i]] = response[i+1]
         return formatted_response #returns all pois to their tweet counts
     
-    def top_n_pois(self, response, num_pois):
+    def top_n_pois(response, num_pois):
         formatted_response = []
         for (k,v) in response.items():
             formatted_response.append(k)
