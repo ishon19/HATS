@@ -9,6 +9,7 @@ const useStyles = makeStyles({
     bottom: 0,
     left: 0,
     backgroundColor: "#eeeeee",
+    zIndex: 100,
   },
 });
 
