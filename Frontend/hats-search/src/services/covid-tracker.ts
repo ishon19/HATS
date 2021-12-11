@@ -1,18 +1,10 @@
 import axios from "axios";
-
-export const infectedUrl =
-  "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
-export const recoveredUrl =
-  "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv";
-export const deathUrl =
-  "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv";
-
-const url = "https://covid19.mathdro.id/api";
+import { COVID_API_1, COVID_API_2 } from "./constants";
 
 export const fetchCovidData = async (country: string) => {
-  let changeableUrl = url;
+  let changeableUrl = COVID_API_1;
   if (country) {
-    changeableUrl = `${url}/countries/${country}`;
+    changeableUrl = `${COVID_API_1}/countries/${country}`;
   }
 
   try {
@@ -31,7 +23,7 @@ export const fetchCovidData = async (country: string) => {
 
 export const fetchCovidDailyData = async () => {
   try {
-    const { data } = await axios.get(`${url}/daily`);
+    const { data } = await axios.get(`${COVID_API_1}/daily`);
     const modifiedData = data.map((dailyData: Record<string, any>) => ({
       confirmed: dailyData.confirmed.total,
       deaths: dailyData.deaths.total,
@@ -45,9 +37,24 @@ export const fetchCovidCountries = async () => {
   try {
     const {
       data: { countries },
-    } = await axios.get(`${url}/countries`);
+    } = await axios.get(`${COVID_API_1}/countries`);
     return countries.map((country: Record<string, string>) => country.name);
   } catch (error) {
     console.log(error);
   }
+};
+
+export const fetchCountryDataLive = async (country: string) => {
+  const data = await axios.get(
+    `${COVID_API_2}/total/dayone/country/${country}`
+  );
+  const modifiedData = data.data.map((dailyData: Record<string, any>) => ({
+    confirmed: dailyData.Confirmed,
+    deaths: dailyData.Deaths,
+    recovered: dailyData.Recovered,
+    active: dailyData.Active,
+    date: new Date(dailyData.Date).toDateString(),
+  }));
+
+  return modifiedData;
 };

@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { cardStyles } from "../styles/card-styles";
-import { fetchCovidCountries, fetchCovidData } from "./constants";
 import {
   BarChart,
   Bar,
@@ -21,17 +20,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { ICovidStatsByCountry } from "../../interfaces/interface";
+import { fetchCountryDataLive, fetchCovidCountries, fetchCovidData } from "../../services/covid-tracker";
 
 const CovidCurrentStats = (props: ICovidStatsByCountry) => {
-  const [data, setData] = React.useState<{
-    confirmed: Record<string, number>;
-    deaths: Record<string, number>;
-    recovered: Record<string, number>;
-  }>({
-    confirmed: { value: 0 },
-    deaths: { value: 0 },
-    recovered: { value: 0 },
-  });
+  const [data, setData] = React.useState([]);
   const [value, setValue] = React.useState("");
   const [countries, setCountries] = React.useState<string[]>([]);
   const [loading, setLoading] = React.useState(false);
@@ -39,15 +31,9 @@ const CovidCurrentStats = (props: ICovidStatsByCountry) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const countryCases = await fetchCovidData(props.country);
+      const countryCases = await fetchCountryDataLive(props.country);
       console.log("CovidCurrentStats", countryCases);
-      const countries = await fetchCovidCountries();
-      console.log("Covid Countries", countries);
-      setData({
-        confirmed: countryCases?.confirmed || 0,
-        deaths: countryCases?.deaths || 0,
-        recovered: countryCases?.recovered || 0,
-      });
+      setData(countryCases);
       setCountries(countries);
       setLoading(false);
     };
@@ -84,11 +70,11 @@ const CovidCurrentStats = (props: ICovidStatsByCountry) => {
         <CardContent>
           {!loading ? (
             <Grid>
-              <ResponsiveContainer width="40%" height="30%" aspect={3}>
+              <ResponsiveContainer width="60%" height="30%" aspect={3}>
                 <BarChart
                   width={500}
                   height={300}
-                  data={[data]}
+                  data={data}
                   margin={{
                     top: 5,
                     right: 30,
@@ -97,12 +83,13 @@ const CovidCurrentStats = (props: ICovidStatsByCountry) => {
                   }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
+                  <XAxis dataKey="date" />
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="confirmed" fill="#8884d8" />
-                  <Bar dataKey="deaths" fill="#82ca9d" />
+                  <Bar dataKey="confirmed" fill="#4dd0e1" />
+                  <Bar dataKey="deaths" fill="#ff8a65" />                  
+                  <Bar dataKey="active" fill="#4caf50" />
                 </BarChart>
               </ResponsiveContainer>
             </Grid>

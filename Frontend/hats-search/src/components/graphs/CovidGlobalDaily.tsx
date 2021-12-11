@@ -16,8 +16,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { fetchCovidDailyData } from "../../services/covid-tracker";
 import { cardStyles } from "../styles/card-styles";
-import { fetchCovidDailyData } from "./constants";
 
 const CovidGlobalDaily = () => {
   const [data, setData] = React.useState([]);
@@ -54,7 +54,7 @@ const CovidGlobalDaily = () => {
       <Card className={classes.root}>
         <CardContent style={{ textAlign: "center" }}>
           {!loading ? (
-            <ResponsiveContainer width="70%" height="30%" aspect={3}>
+            <ResponsiveContainer width="80%" height="30%" aspect={3}>
               <LineChart
                 width={500}
                 height={300}
@@ -81,7 +81,7 @@ const CovidGlobalDaily = () => {
               </LineChart>
             </ResponsiveContainer>
           ) : (
-            <CircularProgress style={{ marginLeft: "50%" }} />
+            <CircularProgress />
           )}
         </CardContent>
       </Card>
