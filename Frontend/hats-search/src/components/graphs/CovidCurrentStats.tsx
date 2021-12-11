@@ -18,6 +18,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  AreaChart,
+  Area,
 } from "recharts";
 import { ICovidStatsByCountry } from "../../interfaces/interface";
 import { fetchCountryDataLive, fetchCovidCountries, fetchCovidData } from "../../services/covid-tracker";
@@ -71,7 +73,7 @@ const CovidCurrentStats = (props: ICovidStatsByCountry) => {
           {!loading ? (
             <Grid>
               <ResponsiveContainer width="60%" height="30%" aspect={3}>
-                <BarChart
+                <AreaChart
                   width={500}
                   height={300}
                   data={data}
@@ -87,10 +89,10 @@ const CovidCurrentStats = (props: ICovidStatsByCountry) => {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="confirmed" fill="#4dd0e1" />
-                  <Bar dataKey="deaths" fill="#ff8a65" />                  
-                  <Bar dataKey="active" fill="#4caf50" />
-                </BarChart>
+                  <Area dataKey="confirmed" fill="#4dd0e1" />
+                  <Area dataKey="deaths" fill="#ff8a65" />                  
+                  <Area dataKey="active" fill="#4caf50" />
+                </AreaChart>
               </ResponsiveContainer>
             </Grid>
           ) : (

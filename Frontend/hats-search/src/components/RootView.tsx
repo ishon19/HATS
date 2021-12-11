@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
-import BarChartRoundedIcon from '@mui/icons-material/BarChartRounded';
+import BarChartRoundedIcon from "@mui/icons-material/BarChartRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import React, { useEffect } from "react";
 import { IFilterState, IRootView } from "../interfaces/interface";
@@ -18,6 +18,18 @@ import { FILTER_OPTIONS } from "../constants";
 import { useLocation, useNavigate } from "react-router";
 import { getFilterString } from "./utils";
 import { Link } from "react-router-dom";
+import { getTopNPois } from "../services/solrSearch";
+
+const createPOIArr = (response: any) => {
+  const modifiedList = response.map((poi: any) => {
+    return {
+      name: poi,
+      value: poi,
+      checked: false,
+    };
+  });
+  return modifiedList;
+};
 
 const RootView = (props: IRootView) => {
   const hideFilter = props.hideFilter;
@@ -62,9 +74,15 @@ const RootView = (props: IRootView) => {
     setOpen(false);
   };
 
-  useEffect(() => {
-    // fetch the top POIs
-  },[])
+  // useEffect(() => {
+  //   // fetch the top POIs
+  //   const fetchTopPOIs = async () => {
+  //     const response = await getTopNPois(10);
+  //     console.log(response);
+  //     setFilterState({ ...filterState, poi: createPOIArr(response) });
+  //   };
+  //   fetchTopPOIs();
+  // }, []);
 
   return (
     <Box flexGrow={1}>

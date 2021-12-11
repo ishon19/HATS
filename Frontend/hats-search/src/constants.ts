@@ -40,6 +40,11 @@ export const FILTER_OPTIONS: IFilterState = {
       name: "Joe Biden",
       checked: false,
     },
+    {
+      value: "CDC",
+      name: "CDC",
+      checked: false,
+    },
   ],
   lang: [
     { value: "English", name: "en", checked: false },
