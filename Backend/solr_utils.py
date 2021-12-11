@@ -95,7 +95,7 @@ class SolrUtils:
         }
         return options
 
-    def format_pois_response(self, response):
+    def format_pois_response(response):
         formatted_response = OrderedDict()
         for i in range(len(response)):
             if (i % 2 == 0):
