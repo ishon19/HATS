@@ -36,7 +36,7 @@ class SolrServer:
         }
         response = self.solr.search(q=solr_query, **options)
         final_response = SolrUtils.format_response(response)
-        print("[search_all] Response: ", final_response)
+        # print("[search_all] Response: ", final_response)
         count_positives = len(
             [i for i in final_response if i[0]['sentiment'] == 'Positive'])
         count_negatives = len(
