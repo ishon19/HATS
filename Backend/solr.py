@@ -19,6 +19,7 @@ class SolrServer:
         solr_options = SolrUtils.get_options(filters, page, rows)
         response = self.solr.search(q=solr_query, **solr_options)
         hits = response.hits
+        
         final_response = SolrUtils.format_response(response)
         return final_response, hits
 
