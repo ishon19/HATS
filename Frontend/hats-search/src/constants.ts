@@ -64,3 +64,22 @@ export const snackBarOptions = {
   autoHideDuration: 3000,
   persist: false,
 };
+
+export const INDIA_POIS: Array<string> = [
+  "narendramodi",
+  "RahulGandhi",
+  "ArvindKejriwal",
+  "PMO India",
+];
+export const USA_POIS: Array<string> = [
+  "KamalaHarris",
+  "Mike_Pence",
+  "Joe Biden",
+  "BarackObama",
+];
+export const MEXICO_POIS: Array<string> = [
+  "lopezobrador_",
+  "Alfredo Del Mazo",
+  "EPN",
+  "fernandeznorona",
+];

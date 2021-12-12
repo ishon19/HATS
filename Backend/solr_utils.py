@@ -47,6 +47,9 @@ class SolrUtils:
     
     def get_poi_query(poi_name):
         return 'poi_name:\"' + poi_name + "\""
+    
+    def get_search_by_tweet_query(tweet_id):
+        return 'id:' + tweet_id
         
     def get_options(filters, page, row):
         # parse for the filters

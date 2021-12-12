@@ -83,5 +83,13 @@ class SolrServer:
         response = self.solr.search(q=formatted_poi_query, start = 0, rows = 100, fl = "tweet_text")
         final_response = SolrUtils.sentiment_counts(response)
         return final_response
+
+    def search_tweet_by_id(self, tweet_id):
+        print("[search_docs] Search Tweet ID: ", tweet_id)
+        solr_query = SolrUtils.get_search_by_tweet_query(tweet_id)
+        response = self.solr.search(solr_query)
+        final_response = SolrUtils.format_response(response)
+        return final_response
+
         
     

@@ -1,5 +1,6 @@
 import axios from "axios";
-import { COVID_API_1, COVID_API_2 } from "./constants";
+import { INDIA_POIS, MEXICO_POIS, USA_POIS } from "../constants";
+import { APP_ENDPOINT, COVID_API_1, COVID_API_2 } from "./constants";
 
 export const fetchCovidData = async (country: string) => {
   let changeableUrl = COVID_API_1;
@@ -56,4 +57,42 @@ export const fetchCountryDataLive = async (country: string) => {
   }));
 
   return modifiedData;
+};
+
+export const fetchPOITweetDates = async (country: string) => {
+  const poiDateCountArr: Array<Array<Record<string, any>>> = [];
+  const poiTopCountArr: Array<Array<Record<string, any>>> = [];
+  let poiList: Array<string> = [];
+
+  if (country === "USA") poiList = USA_POIS;
+  else if (country === "India") poiList = INDIA_POIS;
+  else poiList = MEXICO_POIS;
+
+  await poiList.map(async (poi) => {
+    const response = await axios.post(
+      `${APP_ENDPOINT}/get-pois-tweet-date-count`,
+      {
+        poi_name: poi,
+      }
+    );
+    const dateCountObj = response.data.data.date_count || {};
+    const topDatesObj = response.data.data.top_dates || {};
+
+    const dateChartData = Object.keys(dateCountObj).map((date: string) => ({
+      date: new Date(date).toDateString(),
+      poi,
+      country,
+      count: dateCountObj[date],
+    }));
+    const topDatesChartData = Object.keys(topDatesObj).map((date: string) => ({
+      date: new Date(date).toDateString(),
+      poi,
+      country,
+      count: topDatesObj[date],
+    }));
+    poiDateCountArr.push(dateChartData);
+    poiTopCountArr.push(topDatesChartData);
+    return { poiDateCountArr, poiTopCountArr };
+  });
+  return { poiDateCountArr, poiTopCountArr };
 };

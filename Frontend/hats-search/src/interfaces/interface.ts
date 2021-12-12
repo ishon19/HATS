@@ -114,3 +114,7 @@ export interface IPOITweetCount {
 export interface ICovidStatsByCountry {
   country: string;
 }
+
+export interface ISearchResultDetails {
+  poiId: string;
+}
