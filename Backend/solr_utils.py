@@ -49,10 +49,8 @@ class SolrUtils:
         return 'poi_name:\"' + poi_name + "\""
         
     def get_options(filters, page, row):
-        # parse for the filters
-        # Note: assuming 10 rows for page
-        rows = page * row
-        start = rows - row
+        start = page * row
+        rows = start + row
         filt = []
         if 'pois' in filters:
             temp = ""
