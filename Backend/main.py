@@ -79,6 +79,18 @@ def get_poi_sentiments():
     response_obj = solr_server.find_poi_sentiments(poi_name)
     return jsonify({'poi_sentiments': response_obj})
 
+
+@app.route('/get-pois-tweet-date-count', methods=['POST'])
+@cross_origin()
+def get_poi_datewise_tweets():
+    request_data = request.get_json()
+    poi_name = request_data['poi_name']
+    print("Getting tweets datewise for POI:" + poi_name)
+    solr_server = SolrServer()
+    print("[search] Health check: ", solr_server.solr.ping())
+    response_obj = solr_server.get_tweets_by_date(poi_name)
+    return jsonify({'data': response_obj})
+
 @app.route('/get-replies', methods=['POST'])
 @cross_origin()
 def insights():
@@ -88,17 +100,10 @@ def insights():
     request_data = request.get_json()
     search_id = request_data['tweet_id']
     print("Replies for Tweet ID: ", search_id)
-
-    # search the term
     solr_server = SolrServer()
-
-    # health check
     print("[search] Health check: ", solr_server.solr.ping())
-
-    # search
     response_obj = solr_server.search_replies(search_id)
     return jsonify({'data': response_obj})
-
 
 @app.route('/get-language-dist', methods=['GET'])
 @cross_origin()
