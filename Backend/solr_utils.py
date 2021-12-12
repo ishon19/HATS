@@ -52,10 +52,8 @@ class SolrUtils:
         return 'id:' + tweet_id
         
     def get_options(filters, page, row):
-        # parse for the filters
-        # Note: assuming 10 rows for page
-        rows = page * row
-        start = rows - row
+        start = page * row
+        rows = start + row
         filt = []
         if 'pois' in filters:
             temp = ""
