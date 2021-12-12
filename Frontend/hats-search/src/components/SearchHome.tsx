@@ -26,12 +26,12 @@ const SearchHome = () => {
         alignContent: "flex-start",
       }}
     >
-      <Grid container sx={{ marginTop: "15vh", marginLeft: "12vw" }}>
+      <Grid container sx={{ marginTop: "17vh", marginLeft: "15vw" }}>
         <Grid item>
           <img
             src={logo}
             alt="logo"
-            style={{ height: "20rem", width: "25rem" }}
+            style={{ height: "15rem", width: "25rem" }}
           />
         </Grid>
       </Grid>
