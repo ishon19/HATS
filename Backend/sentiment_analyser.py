@@ -26,24 +26,16 @@ import pandas as pd
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import re
 import nltk
+import time
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
-from nltk.stem.wordnet import WordNetLemmatizer
-from deep_translator import (GoogleTranslator,
-                             PonsTranslator,
-                             LingueeTranslator,
-                             MyMemoryTranslator,
-                             YandexTranslator,
-                             DeepL,
-                             QCRI,
-                             single_detection,
-                             batch_detection)
+from deep_translator import GoogleTranslator
+from langdetect import detect
 nltk.download("stopwords")
 nltk.download("vader_lexicon")
 
 """# ***Class to Preprocess the tweets***"""
-
 
 class Preprocessor:
     def __init__(self):
@@ -56,8 +48,14 @@ class Preprocessor:
         """ Implement logic to pre-process & tokenize document text.
             Write the code in such a way that it can be re-used for processing the user's query.
             To be implemented."""
-        # Translate text to english
-        text = GoogleTranslator(source='auto', target='en').translate(text=text)
+        try:
+            # Translate text to english
+            if detect(text) != "en":
+                text = GoogleTranslator(source='auto', target='en').translate(text=text)
+                time.sleep(0.201)
+        except:
+            text = GoogleTranslator(source='auto', target='en').translate(text=text)
+            time.sleep(0.201)
         # 1. Conversion of text in lower case.
         text = text.lower()
 
@@ -66,7 +64,6 @@ class Preprocessor:
 
         # 3. Removal of extra whitespaces.
         text = re.sub(" +", " ", text)
-        print(type(text))
 
         # 4. Tokenization of text on whitespaces.
         tokens = text.split(" ")
@@ -101,6 +98,7 @@ class SentimentAnalyzer:
             text_analyse = p.tokenizer(
                 self.data[i]["tweet_text"])        
             sentiment = sid.polarity_scores(text_analyse)
+            self.data[i]['sentiment_score'] = sentiment['compound']
             if sentiment["compound"] >= 0.05:
                 self.data[i]["sentiment"] = "Positive"
             elif sentiment["compound"] > -0.05 and sentiment["compound"] < 0.05:
@@ -109,3 +107,18 @@ class SentimentAnalyzer:
                 self.data[i]["sentiment"] = "Negative"
             sentiment = None
         return self.data
+    
+    def get_sentiment_counts(self):
+        sentiment_counts = {"Positive": 0, "Neutral":0, "Negative": 0}
+        p = Preprocessor()
+        sid = SentimentIntensityAnalyzer()
+        for i in range(len(self.data)):
+            text_analyse = p.tokenizer(self.data[i]["tweet_text"])
+            sentiment = sid.polarity_scores(text_analyse)
+            if sentiment["compound"] >= 0.05:
+                sentiment_counts["Positive"] += 1
+            elif sentiment["compound"] > -0.05 and sentiment["compound"] < 0.05:
+                sentiment_counts["Neutral"] += 1
+            elif sentiment["compound"] <= -0.05:
+                sentiment_counts["Negative"] += 1
+        return sentiment_counts

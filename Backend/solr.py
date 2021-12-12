@@ -6,6 +6,7 @@ import pysolr
 from constants import Constants
 from flask import jsonify
 from solr_utils import SolrUtils
+from collections import Counter
 
 
 class SolrServer:
@@ -19,6 +20,7 @@ class SolrServer:
         solr_options = SolrUtils.get_options(filters, page, rows)
         response = self.solr.search(q=solr_query, **solr_options)
         hits = response.hits
+        
         final_response = SolrUtils.format_response(response)
         return final_response, hits
 
@@ -28,27 +30,58 @@ class SolrServer:
         response = self.solr.search(solr_query)
         final_response = SolrUtils.format_response(response)
         return final_response
+        
+    def get_tweets_by_date(self, poi_name):
+        formatted_poi_query = SolrUtils.get_poi_query(poi_name)
+        hits = self.solr.search(q=formatted_poi_query, start = 0, rows = 0).hits
+        response = self.solr.search(q=formatted_poi_query, start = 0, rows = hits, fl = "tweet_date")
+        date_counter = Counter()
+        date_counter = SolrUtils.count_dates(response, date_counter)
+        # final_response = SolrUtils.sentiment_counts(response)
+        return date_counter
 
-    def search_all(self):
-        solr_query = SolrUtils.get_select_all_query()
-        options = {
-            'start': 0, 'rows': 1700
-        }
-        response = self.solr.search(q=solr_query, **options)
-        final_response = SolrUtils.format_response(response)
-        # print("[search_all] Response: ", final_response)
-        count_positives = len(
-            [i for i in final_response if i[0]['sentiment'] == 'Positive'])
-        count_negatives = len(
-            [i for i in final_response if i[0]['sentiment'] == 'Negative'])
-        count_neutral = len(
-            [i for i in final_response if i[0]['sentiment'] == 'Neutral'])
+    def search_lang(self, lang):
+        print("[search_docs] Search Language: ", lang)
+        solr_query = SolrUtils.get_lang_counts(lang)
+        response = self.solr.search(solr_query)
+        hits = response.hits
+        return hits
 
-        return {"positive": count_positives, "negative": count_negatives, "neutral": count_neutral}
-
+    def search_country(self, country):
+        print("[search_docs] Search Country: ", country)
+        solr_query = SolrUtils.get_country_counts(country)
+        response = self.solr.search(solr_query)
+        hits = response.hits
+        return hits
+        
     def find_pois(self, num_pois):
-        solr_pois = SolrUtils.get_pois_options()
-        response = self.solr.search(
-            q="poi_name:*", **solr_pois).facets['facet_fields']["poi_name"]
-        final_response = SolrUtils.format_pois_response(response, num_pois)
+        solr_pois = {
+            'start': 0,
+            'rows': 0,
+            "facet": "true",
+            "facet.field": "poi_name"
+        }
+        response = self.solr.search(q="poi_name:*", **solr_pois).facets['facet_fields']["poi_name"]
+        mid_response = SolrUtils.format_pois_response(response)
+        final_response = SolrUtils.top_n_pois(mid_response, num_pois)
         return final_response
+    
+    def find_poi_counts(self):
+        solr_pois = {
+            'start': 0,
+            'rows': 0,
+            "facet": "true",
+            "facet.field": "poi_name"
+        }
+        response = self.solr.search(q="poi_name:*", **solr_pois).facets['facet_fields']["poi_name"]
+        final_response = SolrUtils.format_pois_response(response)
+        return final_response
+
+    def find_poi_sentiments(self, poi_name):
+        formatted_poi_query = SolrUtils.get_poi_query(poi_name)
+        # hits = self.solr.search(q=formatted_poi_query, start = 0, rows = 0).hits
+        response = self.solr.search(q=formatted_poi_query, start = 0, rows = 100, fl = "tweet_text")
+        final_response = SolrUtils.sentiment_counts(response)
+        return final_response
+        
+    

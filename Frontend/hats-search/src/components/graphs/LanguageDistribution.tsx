@@ -53,13 +53,19 @@ const LanguageDistribution = () => {
   }, []);
 
   return (
-    <Grid item xs={12}>
+    <Grid
+      item
+      xs={12}
+      sx={{ marginTop: "2rem", padding: "0.5rem" }}
+      justifyItems="center"
+    >
       <Typography
         variant="h5"
         component="h2"
         gutterBottom
         fontSize={24}
         fontWeight={25}
+        color="#616161"
       >
         Language wise distribution of Tweets
       </Typography>
@@ -83,7 +89,7 @@ const LanguageDistribution = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="count" fill="#82ca9d" />
+                <Bar dataKey="count" fill="#82ca9d" barSize={73}/>
               </BarChart>
             </ResponsiveContainer>
           ) : (

@@ -1,7 +1,12 @@
 '''
     This file contains the utility methods for solr
 '''
+from collections import OrderedDict
+
 from sentiment_analyser import SentimentAnalyzer
+import pandas as pd
+from tqdm import tqdm
+#from Get_count_and_plots import GetCount
 
 
 class SolrUtils:
@@ -26,13 +31,23 @@ class SolrUtils:
         modified_query = 'replied_to_tweet_id:' + tweet_id
         return modified_query
 
-    def get_select_all_query():
+    def get_lang_counts(lang):
         '''
-            return the select all query
+            return the query string to tweets in a particular language
         '''
-        query = '*:*'
-        return query
+        modified_query = 'tweet_lang:' + lang
+        return modified_query
 
+    def get_country_counts(country):
+        '''
+            return the query string to tweets in a particular language
+        '''
+        modified_query = 'country:' + country
+        return modified_query
+    
+    def get_poi_query(poi_name):
+        return 'poi_name:\"' + poi_name + "\""
+        
     def get_options(filters, page, row):
         # parse for the filters
         # Note: assuming 10 rows for page
@@ -81,16 +96,21 @@ class SolrUtils:
         }
         return options
 
-    def format_pois_response(response, num_pois):
-        formatted_response = []
+    def format_pois_response(response):
+        formatted_response = OrderedDict()
         for i in range(len(response)):
             if (i % 2 == 0):
-                formatted_response.append(response[i])
-            if (len(formatted_response) == num_pois):
+                formatted_response[response[i]] = response[i+1]
+        return formatted_response #returns all pois to their tweet counts
+    
+    def top_n_pois(response, num_pois):
+        formatted_response = []
+        for (k,v) in response.items():
+            formatted_response.append(k)
+            if(len(formatted_response) == num_pois):
                 break
-        print("Top", num_pois, "pois is", formatted_response)
         return formatted_response
-
+    
     def format_response(response):
         '''
             format the response
@@ -101,6 +121,44 @@ class SolrUtils:
             temp_doc.append(doc)
             sentimentAnalyser = SentimentAnalyzer(temp_doc)
             doc = sentimentAnalyser.get_sentiment()
+            #counts = GetCount(temp_doc).getCount()
             formatted_response.append(doc)
-            # print("[format_response] Doc: ", doc)
+            print("[format_response] Doc: ", doc)
+        #counts = GetCount(formatted_response).getCount()
         return formatted_response
+
+
+    def GetCount(response):
+        dataframe = pd.DataFrame(response)
+        sentiment_counts = dict(dataframe["Sentiment"].value_counts())
+        return sentiment_counts
+
+    def sentiment_counts(response):
+        sentiment_counts = {"Positive": 0, "Neutral": 0, "Negative": 0}
+        for doc in tqdm(response):
+            temp_doc = []
+            temp_doc.append(doc)
+            sentimentAnalyser = SentimentAnalyzer(temp_doc)
+            doc = sentimentAnalyser.get_sentiment_counts()
+            sentiment_counts["Positive"] += doc["Positive"]
+            sentiment_counts["Neutral"] += doc["Neutral"]
+            sentiment_counts["Negative"] += doc["Negative"]
+        return sentiment_counts
+
+    def count_dates(response, date_counter):
+        date_list = []
+        for doc in response:
+            date_list.append(doc['tweet_date'].split("T")[0])
+        date_counter.update(date_list)
+        response = {}
+        response["date_count"] = date_counter
+        date_counter_sorted = dict(reversed(sorted(date_counter.items(), key=lambda item: item[1])))
+        top_dates = {}
+        i = 0
+        for date in date_counter_sorted:
+            if i == 10:
+                break
+            i += 1
+            top_dates[date] = date_counter_sorted[date]
+        response["top_dates"] = top_dates
+        return response

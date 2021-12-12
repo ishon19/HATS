@@ -8,31 +8,31 @@ const TextAnnotation = (props: ITextAnnotation) => {
   return (
     <Grid container direction="row" spacing={2}>
       <Grid item>
-        <Typography variant="caption" fontWeight={600}>
+        <Typography variant="caption" fontWeight={600} color="#616161">
           POI Name:{" "}
         </Typography>
         <Typography variant="caption">{poi_name || "N/A"}</Typography>
       </Grid>
       <Grid item>
-        <Typography variant="caption" fontWeight={600}>
+        <Typography variant="caption" fontWeight={600} color="#616161">
           Sentiment:{" "}
         </Typography>
         <Typography variant="caption">{sentiment}</Typography>
       </Grid>
       <Grid item>
-        <Typography variant="caption" fontWeight={600}>
+        <Typography variant="caption" fontWeight={600} color="#616161">
           Sentiment Score:{" "}
         </Typography>
         <Typography variant="caption">{sentiment_score}</Typography>
       </Grid>
       <Grid item>
-        <Typography variant="caption" fontWeight={600}>
+        <Typography variant="caption" fontWeight={600} color="#616161">
           Country:{" "}
         </Typography>
         <Typography variant="caption">{country}</Typography>
       </Grid>
       <Grid item>
-        <Typography variant="caption" fontWeight={600}>
+        <Typography variant="caption" fontWeight={600} color="#616161">
           Time:{" "}
         </Typography>
         <Typography variant="caption">
