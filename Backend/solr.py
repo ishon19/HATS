@@ -6,6 +6,7 @@ import pysolr
 from constants import Constants
 from flask import jsonify
 from solr_utils import SolrUtils
+from collections import Counter
 
 
 class SolrServer:
@@ -29,6 +30,15 @@ class SolrServer:
         response = self.solr.search(solr_query)
         final_response = SolrUtils.format_response(response)
         return final_response
+        
+    def get_tweets_by_date(self, poi_name):
+        formatted_poi_query = SolrUtils.get_poi_query(poi_name)
+        hits = self.solr.search(q=formatted_poi_query, start = 0, rows = 0).hits
+        response = self.solr.search(q=formatted_poi_query, start = 0, rows = hits, fl = "tweet_date")
+        date_counter = Counter()
+        date_counter = SolrUtils.count_dates(response, date_counter)
+        # final_response = SolrUtils.sentiment_counts(response)
+        return date_counter
 
     def search_lang(self, lang):
         print("[search_docs] Search Language: ", lang)
@@ -69,8 +79,8 @@ class SolrServer:
 
     def find_poi_sentiments(self, poi_name):
         formatted_poi_query = SolrUtils.get_poi_query(poi_name)
-        hits = self.solr.search(q=formatted_poi_query, start = 0, rows = 0).hits
-        response = self.solr.search(q=formatted_poi_query, start = 0, rows = hits, fl = "tweet_text")
+        # hits = self.solr.search(q=formatted_poi_query, start = 0, rows = 0).hits
+        response = self.solr.search(q=formatted_poi_query, start = 0, rows = 100, fl = "tweet_text")
         final_response = SolrUtils.sentiment_counts(response)
         return final_response
         

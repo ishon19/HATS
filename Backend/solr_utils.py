@@ -5,6 +5,7 @@ from collections import OrderedDict
 
 from sentiment_analyser import SentimentAnalyzer
 import pandas as pd
+from tqdm import tqdm
 #from Get_count_and_plots import GetCount
 
 
@@ -44,7 +45,7 @@ class SolrUtils:
         modified_query = 'country:' + country
         return modified_query
     
-    def get_poi_query(self, poi_name):
+    def get_poi_query(poi_name):
         return 'poi_name:\"' + poi_name + "\""
         
     def get_options(filters, page, row):
@@ -123,10 +124,9 @@ class SolrUtils:
         sentiment_counts = dict(dataframe["Sentiment"].value_counts())
         return sentiment_counts
 
-
     def sentiment_counts(response):
         sentiment_counts = {"Positive": 0, "Neutral": 0, "Negative": 0}
-        for doc in response:
+        for doc in tqdm(response):
             temp_doc = []
             temp_doc.append(doc)
             sentimentAnalyser = SentimentAnalyzer(temp_doc)
@@ -135,3 +135,21 @@ class SolrUtils:
             sentiment_counts["Neutral"] += doc["Neutral"]
             sentiment_counts["Negative"] += doc["Negative"]
         return sentiment_counts
+
+    def count_dates(response, date_counter):
+        date_list = []
+        for doc in response:
+            date_list.append(doc['tweet_date'].split("T")[0])
+        date_counter.update(date_list)
+        response = {}
+        response["date_count"] = date_counter
+        date_counter_sorted = dict(reversed(sorted(date_counter.items(), key=lambda item: item[1])))
+        top_dates = {}
+        i = 0
+        for date in date_counter_sorted:
+            if i == 10:
+                break
+            i += 1
+            top_dates[date] = date_counter_sorted[date]
+        response["top_dates"] = top_dates
+        return response
