@@ -74,15 +74,15 @@ const RootView = (props: IRootView) => {
     setOpen(false);
   };
 
-  // useEffect(() => {
-  //   // fetch the top POIs
-  //   const fetchTopPOIs = async () => {
-  //     const response = await getTopNPois(10);
-  //     console.log(response);
-  //     setFilterState({ ...filterState, poi: createPOIArr(response) });
-  //   };
-  //   fetchTopPOIs();
-  // }, []);
+  useEffect(() => {
+    // fetch the top POIs
+    const fetchTopPOIs = async () => {
+      const response = await getTopNPois(10);
+      console.log(response);
+      setFilterState({ ...filterState, poi: createPOIArr(response) });
+    };
+    fetchTopPOIs();
+  }, []);
 
   return (
     <Box flexGrow={1}>

@@ -11,7 +11,6 @@ import { APP_ENDPOINT, LANGUAGES } from "../../services/constants";
 import {
   BarChart,
   Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
