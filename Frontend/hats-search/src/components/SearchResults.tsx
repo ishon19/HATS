@@ -10,6 +10,7 @@ import { getSearchResults } from "../services/solrSearch";
 import NoResults from "./atoms/NoResults";
 import SearchField from "./atoms/SearchField";
 import SearchResult from "./atoms/SearchResult";
+import Legends from "./molecules/Legends";
 import Paginate from "./molecules/Paginate";
 import SearchResultSkeleton from "./SearchResultSkeleton";
 
@@ -112,6 +113,9 @@ const SearchResults = () => {
               <Button variant="contained">Search</Button>
             </Link>
           </Grid>
+        </Grid>
+        <Grid item xs={12} paddingTop={2}>
+          <Legends />
         </Grid>
       </Grid>
       {isLoading ? (
