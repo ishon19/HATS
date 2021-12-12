@@ -1,8 +1,7 @@
-import { Button, Grid, TablePagination } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { URLSearchParams } from "url";
-import { FilterContext } from "../contexts/FilterContext";
 
 import { ISearchResultResponse } from "../interfaces/interface";
 import { getSearchResults } from "../services/solrSearch";
@@ -36,7 +35,7 @@ const SearchResults = () => {
   );
   const [value, setValue] = useState("");
   const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(100);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalResults, setTotalResults] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [params] = useSearchParams();
@@ -58,7 +57,7 @@ const SearchResults = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data: ISearchResultResponse[] = await getSearchResults({
+      const { data, count } = await getSearchResults({
         query,
         filters,
         page_number: page,
@@ -66,7 +65,7 @@ const SearchResults = () => {
       });
       if (data.length > 0) {
         setSearchResults(data);
-        setTotalResults(data.length);
+        setTotalResults(count);
       } else {
         setSearchResults([]);
       }
@@ -91,7 +90,7 @@ const SearchResults = () => {
               handleChange={(_e, value) => {
                 setValue(value);
               }}
-              value=""
+              value={query || value}
             />
           </Grid>
           <Grid item xs={2}>

@@ -78,13 +78,22 @@ class SolrUtils:
                 temp += 'tweet_lang:\"' + f + '\" OR '
             temp = temp[:-4]
             filt.append(temp)
-    
+
         options = {
             "start": start,
             "rows": rows
         }
         if filt:
             options["fq"] = filt
+        return options
+
+    def get_pois_options():
+        options = {
+            'start': 0,
+            'rows': 0,
+            "facet": "true",
+            "facet.field": "poi_name"
+        }
         return options
 
     def format_pois_response(response):
