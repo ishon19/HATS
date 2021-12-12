@@ -23,14 +23,25 @@ const SearchHome = () => {
         height: "80vh",
         width: "100vw",
         paddingLeft: "15vw",
+        alignContent: "flex-start",
       }}
     >
-      <Grid container sx={{marginTop: '15vh', marginLeft: '12vw'}}>
+      <Grid container sx={{ marginTop: "15vh", marginLeft: "12vw" }}>
         <Grid item>
-          <img src={logo} alt="logo" style={{height: '20rem', width: '25rem'}}/>
+          <img
+            src={logo}
+            alt="logo"
+            style={{ height: "20rem", width: "25rem" }}
+          />
         </Grid>
       </Grid>
-      <Grid container spacing={1} direction="row" alignItems="center" sx={{marginBottom: '30vh'}}>
+      <Grid
+        container
+        spacing={1}
+        direction="row"
+        alignItems="center"
+        sx={{ marginBottom: "30vh" }}
+      >
         <Grid item xs={6}>
           <FormControl fullWidth>
             <SearchField value={value} handleChange={handleChange} />

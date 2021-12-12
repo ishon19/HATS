@@ -54,6 +54,7 @@ const PoITweetCounts = () => {
         gutterBottom
         fontSize={24}
         fontWeight={25}
+        color="#616161"
       >
         Tweet Counts of Top POIs
       </Typography>

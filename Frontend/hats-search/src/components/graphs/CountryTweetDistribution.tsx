@@ -64,6 +64,7 @@ const CountryDistribution = () => {
         gutterBottom
         fontSize={24}
         fontWeight={25}
+        color="#616161"
       >
         Country wise distribution of Tweets
       </Typography>

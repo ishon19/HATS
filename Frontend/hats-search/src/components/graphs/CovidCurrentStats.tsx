@@ -65,6 +65,7 @@ const CovidCurrentStats = (props: ICovidStatsByCountry) => {
         gutterBottom
         fontSize={24}
         fontWeight={25}
+        color="#616161"
       >
         {props.country} COVID Stats
       </Typography>

@@ -65,6 +65,7 @@ const LanguageDistribution = () => {
         gutterBottom
         fontSize={24}
         fontWeight={25}
+        color="#616161"
       >
         Language wise distribution of Tweets
       </Typography>

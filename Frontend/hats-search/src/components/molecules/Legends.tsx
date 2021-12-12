@@ -19,7 +19,7 @@ const Legends = () => {
             />
           </Grid>
           <Grid item>
-            <Typography variant="caption" fontWeight="bold">
+            <Typography variant="caption" fontWeight="bold" color="#616161">
               Negative
             </Typography>
           </Grid>
@@ -39,7 +39,7 @@ const Legends = () => {
             />
           </Grid>
           <Grid item>
-            <Typography variant="caption" fontWeight="bold">
+            <Typography variant="caption" fontWeight="bold" color="#616161">
               Neutral
             </Typography>
           </Grid>
@@ -59,7 +59,7 @@ const Legends = () => {
             />
           </Grid>
           <Grid item>
-            <Typography variant="caption" fontWeight="bold">
+            <Typography variant="caption" fontWeight="bold" color="#616161">
               Positive
             </Typography>
           </Grid>
