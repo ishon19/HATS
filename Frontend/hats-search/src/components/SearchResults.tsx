@@ -1,7 +1,9 @@
 import { Button, Grid } from "@mui/material";
+import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { URLSearchParams } from "url";
+import { snackBarOptions } from "../constants";
 
 import { ISearchResultResponse } from "../interfaces/interface";
 import { getSearchResults } from "../services/solrSearch";
@@ -41,6 +43,7 @@ const SearchResults = () => {
   const [params] = useSearchParams();
   const query = (params.get("q") as string) ?? "";
   const filters = getFilterObj(params);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handlePageChange = (_event: any, newPage: number) => {
     console.log("[pagination] new page: ", newPage);
@@ -66,8 +69,16 @@ const SearchResults = () => {
       if (data.length > 0) {
         setSearchResults(data);
         setTotalResults(count);
+        enqueueSnackbar(`${count} search results found`, {
+          variant: "success",
+          anchorOrigin: { horizontal: "center", vertical: "bottom" },
+        });
       } else {
         setSearchResults([]);
+        enqueueSnackbar(`No results found`, {
+          variant: "warning",
+          anchorOrigin: { horizontal: "center", vertical: "bottom" },
+        });
       }
       setIsLoading(false);
     };

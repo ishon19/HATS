@@ -52,7 +52,12 @@ const CountryDistribution = () => {
   }, []);
 
   return (
-    <Grid item xs={12}>
+    <Grid
+      item
+      xs={12}
+      sx={{ marginTop: "2rem", padding: "0.5rem" }}
+      justifyItems="center"
+    >
       <Typography
         variant="h5"
         component="h2"
@@ -82,7 +87,7 @@ const CountryDistribution = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="count" fill="#fbc02d" />
+                <Bar dataKey="count" fill="#fbc02d" barSize={73} />
               </BarChart>
             </ResponsiveContainer>
           ) : (

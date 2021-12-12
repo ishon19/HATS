@@ -31,4 +31,15 @@ const getFilterString = (filterState: IFilterState): string => {
   return filterString;
 };
 
-export { getColorBySentiment, getFilterString };
+const createPOIArr = (response: any) => {
+  const modifiedList = response.map((poi: any) => {
+    return {
+      name: poi,
+      value: poi,
+      checked: false,
+    };
+  });
+  return modifiedList;
+};
+
+export { getColorBySentiment, getFilterString, createPOIArr };

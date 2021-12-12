@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ISearchRequest } from "../interfaces/interface";
+import { IPOITweetCount, ISearchRequest } from "../interfaces/interface";
 import { APP_ENDPOINT, SEARCH_ENDPOINT } from "./constants";
 
 const getSearchResults = async (props: ISearchRequest) => {
@@ -25,4 +25,20 @@ const getTopNPois = async (num_pois: number) => {
   return response.data.pois_data;
 };
 
-export { getSearchResults, getTopNPois };
+const getPOITweetCounts = async () => {
+  const response = await axios.get(`${APP_ENDPOINT}/get-pois-tweet-count`);
+  const POIList = response.data.pois_tweet_count_data;
+  console.log("[getPOITweetCounts] Response: ", POIList);
+  const modifiedPOIList = Object.keys(POIList).map((key) => {
+    return {
+      poi: key,
+      count: POIList[key],
+    };
+  });
+
+  console.log("[getPOITweetCounts] Modified POIList: ", modifiedPOIList);
+
+  return modifiedPOIList;
+};
+
+export { getSearchResults, getTopNPois, getPOITweetCounts };

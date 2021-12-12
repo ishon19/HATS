@@ -4,6 +4,7 @@ import CovidGlobalDaily from "../graphs/CovidGlobalDaily";
 import CovidCurrentStats from "../graphs/CovidCurrentStats";
 import LanguageDistribution from "../graphs/LanguageDistribution";
 import CountryDistribution from "../graphs/CountryTweetDistribution";
+import PoITweetCounts from "../graphs/PoITweetCounts";
 
 const Insights = () => {
   return (
@@ -24,6 +25,7 @@ const Insights = () => {
       </Grid>
       <LanguageDistribution />
       <CountryDistribution />
+      <PoITweetCounts />
     </Grid>
   );
 };

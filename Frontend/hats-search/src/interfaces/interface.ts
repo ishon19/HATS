@@ -105,6 +105,11 @@ export interface ISearchRequest {
   rows_per_page: number;
 }
 
+export interface IPOITweetCount {
+  poi: string;
+  count: number;
+}
+
 export interface ICovidStatsByCountry {
   country: string;
 }

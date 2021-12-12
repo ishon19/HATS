@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -7,7 +6,11 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import { APP_ENDPOINT, LANGUAGES } from "../../services/constants";
+import React, { useEffect } from "react";
+import { FilterContext } from "../../contexts/FilterContext";
+import { IFilterState, IPOITweetCount } from "../../interfaces/interface";
+import { APP_ENDPOINT } from "../../services/constants";
+import { getPOITweetCounts } from "../../services/solrSearch";
 import {
   BarChart,
   Bar,
@@ -21,35 +24,21 @@ import {
 } from "recharts";
 import { cardStyles } from "../styles/card-styles";
 
-const fetchLanguageDistribution = async () => {
-  const finalArr: Array<Record<string, any>> = [];
-
-  const response = await axios.get(`${APP_ENDPOINT}/get-language-dist`);
-  const { data } = response.data;
-  console.log(data);
-  Object.keys(data).forEach((key) => {
-    finalArr.push({
-      language: LANGUAGES[key],
-      count: data[key],
-    });
-  });
-  return finalArr;
-};
-
-const LanguageDistribution = () => {
-  const [loading, setLoading] = React.useState(false);
+const PoITweetCounts = () => {
+  const [loading, setLoading] = React.useState(true);
   const [data, setData] = React.useState<Array<Record<string, any>>>([]);
   const classes = cardStyles();
 
   useEffect(() => {
+    console.log("useEffect");
     const fetchData = async () => {
-      const response = await fetchLanguageDistribution();
-      console.log("[LanguageDistribution] Response", response);
+      const response = await getPOITweetCounts();
+      console.log(response);
       setData(response);
       setLoading(false);
     };
-    fetchData();
     setLoading(true);
+    fetchData();
   }, []);
 
   return (
@@ -66,7 +55,7 @@ const LanguageDistribution = () => {
         fontSize={24}
         fontWeight={25}
       >
-        Language wise distribution of Tweets
+        Tweet Counts of Top POIs
       </Typography>
       <Card className={classes.root}>
         <CardContent style={{ textAlign: "center" }}>
@@ -84,11 +73,11 @@ const LanguageDistribution = () => {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="language" />
+                <XAxis dataKey="poi" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="count" fill="#82ca9d" barSize={73}/>
+                <Bar dataKey="count" fill="#ff4081" />
               </BarChart>
             </ResponsiveContainer>
           ) : (
@@ -100,4 +89,4 @@ const LanguageDistribution = () => {
   );
 };
 
-export default LanguageDistribution;
+export default PoITweetCounts;

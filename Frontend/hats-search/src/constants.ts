@@ -57,3 +57,10 @@ export const FILTER_OPTIONS: IFilterState = {
     { value: "Mexico", name: "Mexico", checked: false },
   ],
 };
+
+export const snackBarOptions = {
+  anchorOrigin: { horizontal: "right", vertical: "bottom" },
+  preventDuplicate: false,
+  autoHideDuration: 3000,
+  persist: false,
+};

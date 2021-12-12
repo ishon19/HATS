@@ -1,4 +1,6 @@
 import { ThemeProvider } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { SnackbarProvider } from "notistack";
 import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import "./App.css";
 import Insights from "./components/molecules/Insights";
@@ -10,24 +12,26 @@ import themeOptions from "./theme/theme";
 function App() {
   return (
     <div className="App">
-      <ThemeProvider theme={themeOptions}>
-        <HashRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={<RootView root={<SearchHome />} hideFilter={true} />}
-            />
-            <Route
-              path="/search"
-              element={<RootView root={<SearchResults />} />}
-            />
-            <Route
-              path="/insights"
-              element={<RootView root={<Insights />} />}
-            />
-          </Routes>
-        </HashRouter>
-      </ThemeProvider>
+      <SnackbarProvider maxSnack={3}>
+        <ThemeProvider theme={themeOptions}>
+          <HashRouter>
+            <Routes>
+              <Route
+                path="/"
+                element={<RootView root={<SearchHome />} hideFilter={true} />}
+              />
+              <Route
+                path="/search"
+                element={<RootView root={<SearchResults />} />}
+              />
+              <Route
+                path="/insights"
+                element={<RootView root={<Insights />} hideFilter={true} />}
+              />
+            </Routes>
+          </HashRouter>
+        </ThemeProvider>
+      </SnackbarProvider>
     </div>
   );
 }
