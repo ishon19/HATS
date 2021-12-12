@@ -137,6 +137,7 @@ const SearchResults = () => {
       )}
       <Grid item>
         <Paginate
+          showPagination={searchResults.length > 0}
           handlePageChange={handlePageChange}
           handlePerPageChange={handleRowsPerPageChange}
           page={page}

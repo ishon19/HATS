@@ -70,7 +70,7 @@ const RootView = (props: IRootView) => {
       setFilterState({ ...filterState, poi: createPOIArr(response) });
     };
     fetchTopPOIs();
-  }, [filterState]);
+  }, []);
 
   return (
     <FilterContext.Provider value={filterState}>

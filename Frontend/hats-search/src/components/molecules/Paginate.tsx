@@ -1,6 +1,7 @@
-import { Grid, TablePagination } from "@mui/material";
+import { Button, Grid, TablePagination } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
+import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 import { IPaginate } from "../../interfaces/interface";
 
 const useStyles = makeStyles({
@@ -15,25 +16,48 @@ const useStyles = makeStyles({
 
 const Paginate = (props: IPaginate) => {
   const classes = useStyles();
-  const { page, perPage, total, handlePageChange, handlePerPageChange } = props;
+  const {
+    page,
+    perPage,
+    total,
+    handlePageChange,
+    handlePerPageChange,
+    showPagination,
+  } = props;
 
   return (
     <Grid
       container
       direction="row"
       className={classes.root}
-      flexDirection="row-reverse"
+      flexDirection="row"
+      justifyContent="space-between"
     >
-      <Grid item>
-        <TablePagination
-          component="div"
-          count={total}
-          page={page}
-          onPageChange={handlePageChange}
-          rowsPerPage={perPage}
-          onRowsPerPageChange={handlePerPageChange}
-        />
+      <Grid item sx={{ margin: "0.5rem" }}>
+        <Button
+          onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          }}
+        >
+          <KeyboardArrowUpRoundedIcon />
+          Scroll to top
+        </Button>
       </Grid>
+      {showPagination && (
+        <Grid item>
+          <TablePagination
+            component="div"
+            count={total}
+            page={page}
+            onPageChange={handlePageChange}
+            rowsPerPage={perPage}
+            onRowsPerPageChange={handlePerPageChange}
+          />
+        </Grid>
+      )}
     </Grid>
   );
 };

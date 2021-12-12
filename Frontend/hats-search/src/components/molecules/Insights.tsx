@@ -5,6 +5,7 @@ import CovidCurrentStats from "../graphs/CovidCurrentStats";
 import LanguageDistribution from "../graphs/LanguageDistribution";
 import CountryDistribution from "../graphs/CountryTweetDistribution";
 import PoITweetCounts from "../graphs/PoITweetCounts";
+import Paginate from "./Paginate";
 
 const Insights = () => {
   return (
@@ -26,6 +27,14 @@ const Insights = () => {
           </Grid>
         </Grid>
       </Grid>
+      <Paginate
+        handlePageChange={() => {}}
+        handlePerPageChange={() => {}}
+        page={0}
+        perPage={0}
+        total={0}
+        showPagination={false}
+      />
     </Grid>
   );
 };

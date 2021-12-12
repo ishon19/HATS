@@ -33,6 +33,7 @@ export interface IPaginate {
   handlePerPageChange: (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
+  showPagination?: boolean;
 }
 
 export interface ISearchResultResponse {
