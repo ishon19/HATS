@@ -93,7 +93,7 @@ const SearchResults = () => {
               value={query || value}
             />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={1} marginTop={1}>
             <Link
               to={{ pathname: "/search", search: "q=" + value }}
               style={{ textDecoration: "none" }}
