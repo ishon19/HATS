@@ -5,7 +5,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React, { PureComponent } from "react";
+import React from "react";
 import {
   LineChart,
   Line,
@@ -18,16 +18,17 @@ import {
 } from "recharts";
 import { fetchCovidDailyData } from "../../services/covid-tracker";
 import { cardStyles } from "../styles/card-styles";
+import { chartStyles } from "../styles/chart-styles";
 
 const CovidGlobalDaily = () => {
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const classes = cardStyles();
+  const chartClasses = chartStyles();
 
   React.useEffect(() => {
     const fetchDailyData = async () => {
       const data = await fetchCovidDailyData();
-      console.log("Daily Cases: ", data);
       setData(data);
       setLoading(false);
     };
@@ -55,7 +56,12 @@ const CovidGlobalDaily = () => {
       <Card className={classes.root}>
         <CardContent style={{ textAlign: "center" }}>
           {!loading ? (
-            <ResponsiveContainer width="80%" height="30%" aspect={3}>
+            <ResponsiveContainer
+              width="40%"
+              height="100%"
+              aspect={3}
+              className={chartClasses.root}
+            >
               <LineChart
                 width={500}
                 height={300}

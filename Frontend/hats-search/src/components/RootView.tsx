@@ -56,7 +56,6 @@ const RootView = (props: IRootView) => {
   };
 
   const filterClickHandler = () => {
-    console.log("filter button clicked");
     setOpen(!open);
   };
 
@@ -68,11 +67,10 @@ const RootView = (props: IRootView) => {
     // fetch the top POIs
     const fetchTopPOIs = async () => {
       const response = await getTopNPois(30);
-      console.log(response);
       setFilterState({ ...filterState, poi: createPOIArr(response) });
     };
     fetchTopPOIs();
-  }, []);
+  }, [filterState]);
 
   return (
     <FilterContext.Provider value={filterState}>

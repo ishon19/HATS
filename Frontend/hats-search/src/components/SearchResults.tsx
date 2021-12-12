@@ -3,7 +3,6 @@ import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { URLSearchParams } from "url";
-import { snackBarOptions } from "../constants";
 
 import { ISearchResultResponse } from "../interfaces/interface";
 import { getSearchResults } from "../services/solrSearch";
@@ -28,7 +27,6 @@ const getFilterObj = (params: URLSearchParams) => {
   filterObj.country = country;
   filterObj.language = lang;
 
-  console.log("Filter Obj: ", filterObj);
   return filterObj;
 };
 
@@ -47,14 +45,12 @@ const SearchResults = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const handlePageChange = (_event: any, newPage: number) => {
-    console.log("[pagination] new page: ", newPage);
     setPage(newPage);
   };
 
   const handleRowsPerPageChange = (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    console.log("[pagination] per page: ", event.target.value);
     const newRowsPerPage = parseInt(event.target.value, 10);
     setRowsPerPage(newRowsPerPage);
   };
@@ -85,7 +81,7 @@ const SearchResults = () => {
     };
     setIsLoading(true);
     fetchData();
-  }, [page, rowsPerPage, params]);
+  }, [page, rowsPerPage, params, enqueueSnackbar, query]);
 
   return (
     <Grid

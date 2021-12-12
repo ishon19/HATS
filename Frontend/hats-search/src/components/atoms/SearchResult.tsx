@@ -6,8 +6,6 @@ import {
   Stack,
   Badge,
 } from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
 import { SEARCH_IMAGE_URL } from "../../constants";
 import { ISearchResult } from "../../interfaces/interface";
 import TextAnnotation from "../molecules/TextAnnotation";

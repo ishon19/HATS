@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import { APP_ENDPOINT, LANGUAGES } from "../../services/constants";
+import { APP_ENDPOINT } from "../../services/constants";
 import {
   BarChart,
   Bar,
@@ -19,13 +19,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { cardStyles } from "../styles/card-styles";
+import { chartStyles } from "../styles/chart-styles";
 
 const fetchLanguageDistribution = async () => {
   const finalArr: Array<Record<string, any>> = [];
 
   const response = await axios.get(`${APP_ENDPOINT}/get-country-dist`);
   const { data } = response.data;
-  console.log(data);
   Object.keys(data).forEach((key) => {
     finalArr.push({
       language: key,
@@ -39,11 +39,11 @@ const CountryDistribution = () => {
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState<Array<Record<string, any>>>([]);
   const classes = cardStyles();
+  const chartClasses = chartStyles();
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetchLanguageDistribution();
-      console.log("[CountryDistribution] Response", response);
       setData(response);
       setLoading(false);
     };
@@ -71,7 +71,12 @@ const CountryDistribution = () => {
       <Card className={classes.root}>
         <CardContent style={{ textAlign: "center" }}>
           {!loading ? (
-            <ResponsiveContainer width="40%" height="100%" aspect={2}>
+            <ResponsiveContainer
+              width="40%"
+              height="100%"
+              aspect={2}
+              className={chartClasses.root}
+            >
               <BarChart
                 width={300}
                 height={300}

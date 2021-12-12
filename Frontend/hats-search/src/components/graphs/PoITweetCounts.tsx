@@ -5,16 +5,11 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import React, { useEffect } from "react";
-import { FilterContext } from "../../contexts/FilterContext";
-import { IFilterState, IPOITweetCount } from "../../interfaces/interface";
-import { APP_ENDPOINT } from "../../services/constants";
 import { getPOITweetCounts } from "../../services/solrSearch";
 import {
   BarChart,
   Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -23,17 +18,17 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { cardStyles } from "../styles/card-styles";
+import { chartStyles } from "../styles/chart-styles";
 
 const PoITweetCounts = () => {
   const [loading, setLoading] = React.useState(true);
   const [data, setData] = React.useState<Array<Record<string, any>>>([]);
   const classes = cardStyles();
+  const chartClasses = chartStyles();
 
   useEffect(() => {
-    console.log("useEffect");
     const fetchData = async () => {
       const response = await getPOITweetCounts();
-      console.log(response);
       setData(response);
       setLoading(false);
     };
@@ -61,7 +56,12 @@ const PoITweetCounts = () => {
       <Card className={classes.root}>
         <CardContent style={{ textAlign: "center" }}>
           {!loading ? (
-            <ResponsiveContainer width="40%" height="100%" aspect={2}>
+            <ResponsiveContainer
+              width="40%"
+              height="100%"
+              aspect={2}
+              className={chartClasses.root}
+            >
               <BarChart
                 width={300}
                 height={300}

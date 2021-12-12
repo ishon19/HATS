@@ -9,7 +9,6 @@ const SearchHome = () => {
   const [value, setValue] = useState("");
 
   const handleChange = (_event: React.ChangeEvent<{}>, newValue: string) => {
-    console.log("[SearchHome] ", newValue);
     setValue(newValue);
   };
 

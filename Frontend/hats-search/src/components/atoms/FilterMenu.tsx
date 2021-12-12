@@ -6,7 +6,6 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React from "react";
-import { FILTER_OPTIONS } from "../../constants";
 import { IFilterMenu } from "../../interfaces/interface";
 import CheckBoxWithTitle from "./CheckBoxWithTitle";
 
@@ -15,13 +14,6 @@ const FilterMenu = (props: IFilterMenu) => {
     event: React.ChangeEvent<HTMLInputElement>,
     filterName: string
   ) => {
-    console.log(
-      "FilterName: ",
-      filterName,
-      "Checkbox ",
-      event.target.name,
-      event.target.checked
-    );
     props.handleFilterChange(
       filterName,
       event.target.name,

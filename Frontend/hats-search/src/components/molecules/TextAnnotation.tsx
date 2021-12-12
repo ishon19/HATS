@@ -3,8 +3,7 @@ import React from "react";
 import { ITextAnnotation } from "../../interfaces/interface";
 
 const TextAnnotation = (props: ITextAnnotation) => {
-  const { sentiment, country, time, verified, poi_name, sentiment_score } =
-    props;
+  const { sentiment, country, time, poi_name, sentiment_score } = props;
   return (
     <Grid container direction="row" spacing={2}>
       <Grid item>
@@ -17,26 +16,26 @@ const TextAnnotation = (props: ITextAnnotation) => {
         <Typography variant="caption" fontWeight={600} color="#616161">
           Sentiment:{" "}
         </Typography>
-        <Typography variant="caption">{sentiment}</Typography>
+        <Typography variant="caption">{sentiment || "N/A"}</Typography>
       </Grid>
       <Grid item>
         <Typography variant="caption" fontWeight={600} color="#616161">
           Sentiment Score:{" "}
         </Typography>
-        <Typography variant="caption">{sentiment_score}</Typography>
+        <Typography variant="caption">{sentiment_score || "N/A"}</Typography>
       </Grid>
       <Grid item>
         <Typography variant="caption" fontWeight={600} color="#616161">
           Country:{" "}
         </Typography>
-        <Typography variant="caption">{country}</Typography>
+        <Typography variant="caption">{country|| "N/A"}</Typography>
       </Grid>
       <Grid item>
         <Typography variant="caption" fontWeight={600} color="#616161">
           Time:{" "}
         </Typography>
         <Typography variant="caption">
-          {new Date(time as string).toUTCString()}
+          {new Date(time as string).toUTCString() || "N/A"}
         </Typography>
       </Grid>
     </Grid>

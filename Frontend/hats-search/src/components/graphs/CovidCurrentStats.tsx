@@ -3,15 +3,11 @@ import {
   CardContent,
   CircularProgress,
   Grid,
-  Stack,
   Typography,
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { cardStyles } from "../styles/card-styles";
 import {
-  BarChart,
-  Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -22,35 +18,26 @@ import {
   Area,
 } from "recharts";
 import { ICovidStatsByCountry } from "../../interfaces/interface";
-import { fetchCountryDataLive, fetchCovidCountries, fetchCovidData } from "../../services/covid-tracker";
+import { fetchCountryDataLive } from "../../services/covid-tracker";
+import { chartStyles } from "../styles/chart-styles";
 
 const CovidCurrentStats = (props: ICovidStatsByCountry) => {
   const [data, setData] = React.useState([]);
-  const [value, setValue] = React.useState("");
   const [countries, setCountries] = React.useState<string[]>([]);
   const [loading, setLoading] = React.useState(false);
   const classes = cardStyles();
+  const chartClasses = chartStyles();
 
   useEffect(() => {
     const fetchData = async () => {
       const countryCases = await fetchCountryDataLive(props.country);
-      console.log("CovidCurrentStats", countryCases);
       setData(countryCases);
       setCountries(countries);
       setLoading(false);
     };
     setLoading(true);
     fetchData();
-  }, []);
-
-  const handleChange = (
-    _event:
-      | React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-      | React.SyntheticEvent<Element, Event>,
-    value: string
-  ) => {
-    setValue(value);
-  };
+  }, [countries]);
 
   return (
     <Grid
@@ -73,7 +60,7 @@ const CovidCurrentStats = (props: ICovidStatsByCountry) => {
         <CardContent>
           {!loading ? (
             <Grid>
-              <ResponsiveContainer width="60%" height="30%" aspect={3}>
+              <ResponsiveContainer width="50%" height="40%" aspect={3} className={chartClasses.root}>
                 <AreaChart
                   width={500}
                   height={300}

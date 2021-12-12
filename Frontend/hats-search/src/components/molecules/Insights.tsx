@@ -8,24 +8,24 @@ import PoITweetCounts from "../graphs/PoITweetCounts";
 
 const Insights = () => {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} padding={7}>
       <CovidGlobalDaily />
+      <LanguageDistribution />
+      <CountryDistribution />
+      <PoITweetCounts />
       <Grid item xs={12}>
-        <Grid container>
-          <Grid item xs={12}>
+        <Grid container direction="row" spacing={2}>
+          <Grid item xs={12} md={12} lg={12}>
             <CovidCurrentStats country="USA" />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} md={12} lg={12}>
             <CovidCurrentStats country="India" />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} md={12} lg={12}>
             <CovidCurrentStats country="Mexico" />
           </Grid>
         </Grid>
       </Grid>
-      <LanguageDistribution />
-      <CountryDistribution />
-      <PoITweetCounts />
     </Grid>
   );
 };

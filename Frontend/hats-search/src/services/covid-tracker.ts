@@ -9,7 +9,6 @@ export const fetchCovidData = async (country: string) => {
 
   try {
     const response = await axios.get(changeableUrl);
-    console.log("[fetchCovidData] data: ", response.data);
     const { confirmed, recovered, deaths } = response.data;
     return {
       confirmed: confirmed.value,

@@ -11,7 +11,6 @@ import { APP_ENDPOINT, LANGUAGES } from "../../services/constants";
 import {
   BarChart,
   Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -20,13 +19,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { cardStyles } from "../styles/card-styles";
+import { chartStyles } from "../styles/chart-styles";
 
 const fetchLanguageDistribution = async () => {
   const finalArr: Array<Record<string, any>> = [];
 
   const response = await axios.get(`${APP_ENDPOINT}/get-language-dist`);
   const { data } = response.data;
-  console.log(data);
   Object.keys(data).forEach((key) => {
     finalArr.push({
       language: LANGUAGES[key],
@@ -40,11 +39,11 @@ const LanguageDistribution = () => {
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState<Array<Record<string, any>>>([]);
   const classes = cardStyles();
+  const chartClasses = chartStyles();
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetchLanguageDistribution();
-      console.log("[LanguageDistribution] Response", response);
       setData(response);
       setLoading(false);
     };
@@ -72,7 +71,12 @@ const LanguageDistribution = () => {
       <Card className={classes.root}>
         <CardContent style={{ textAlign: "center" }}>
           {!loading ? (
-            <ResponsiveContainer width="40%" height="100%" aspect={2}>
+            <ResponsiveContainer
+              width="40%"
+              height="100%"
+              aspect={2}
+              className={chartClasses.root}
+            >
               <BarChart
                 width={300}
                 height={300}
@@ -89,7 +93,7 @@ const LanguageDistribution = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="count" fill="#82ca9d" barSize={73}/>
+                <Bar dataKey="count" fill="#82ca9d" barSize={73} />
               </BarChart>
             </ResponsiveContainer>
           ) : (
