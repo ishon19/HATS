@@ -6,6 +6,8 @@ import {
   Stack,
   Badge,
 } from "@mui/material";
+import React from "react";
+import { Link } from "react-router-dom";
 import { SEARCH_IMAGE_URL } from "../../constants";
 import { ISearchResult } from "../../interfaces/interface";
 import TextAnnotation from "../molecules/TextAnnotation";
@@ -33,17 +35,32 @@ const SearchResult = (props: ISearchResult) => {
               }}
             > */}
             {props.annotation.poi_id ? (
-              <a
-                style={{
-                  color: getColorBySentiment(
-                    props.annotation.sentiment?.toLowerCase() || "neutral"
-                  ),
-                }}
-                href={`https://twitter.com/${props.annotation.poi_id}/status/${props.annotation.id}`}
-                target="_blank"
-              >
-                {props.title}
-              </a>
+              props.routeToTwitter ? (
+                <a
+                  style={{
+                    color: getColorBySentiment(
+                      props.annotation.sentiment?.toLowerCase() || "neutral"
+                    ),
+                  }}
+                  href={`https://twitter.com/${props.annotation.poi_id}/status/${props.annotation.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {props.title}
+                </a>
+              ) : (
+                <Link
+                  className={classes.link}
+                  to={`/search-details?id=${props.annotation.id}&poi=${props.annotation.poi_name}`}
+                  style={{
+                    color: getColorBySentiment(
+                      props.annotation.sentiment?.toLowerCase() || "neutral"
+                    ),
+                  }}
+                >
+                  {props.title}
+                </Link>
+              )
             ) : (
               <Box
                 style={{

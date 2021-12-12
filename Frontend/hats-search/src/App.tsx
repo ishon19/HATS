@@ -3,6 +3,7 @@ import { SnackbarProvider } from "notistack";
 import { Routes, Route, HashRouter } from "react-router-dom";
 import "./App.css";
 import Insights from "./components/molecules/Insights";
+import SearchResultDetails from "./components/molecules/SearchResultDetails";
 import RootView from "./components/RootView";
 import SearchHome from "./components/SearchHome";
 import SearchResults from "./components/SearchResults";
@@ -26,6 +27,12 @@ function App() {
               <Route
                 path="/insights"
                 element={<RootView root={<Insights />} hideFilter={true} />}
+              />
+              <Route
+                path="/search-details"
+                element={
+                  <RootView root={<SearchResultDetails />} hideFilter={true} />
+                }
               />
             </Routes>
           </HashRouter>

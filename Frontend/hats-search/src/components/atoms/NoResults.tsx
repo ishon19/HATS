@@ -1,14 +1,17 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
+import { INoResultProps } from "../../interfaces/interface";
 
-const NoResults = () => {
+const NoResults = (props: INoResultProps) => {
+  const { title, mainResults } = props;
+
   return (
     <Grid
       container
       alignItems="center"
       component="div"
       justifyContent="center"
-      sx={{ marginTop: "30vh" }}
+      sx={{ marginTop: mainResults ? "30vh" : "1rem" }}
     >
       <Grid item xs={12}>
         <Typography
@@ -17,7 +20,7 @@ const NoResults = () => {
           fontSize={40}
           sx={{ color: "#bdbdbd" }}
         >
-          No results found
+          {title}
         </Typography>
       </Grid>
     </Grid>

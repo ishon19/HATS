@@ -59,40 +59,31 @@ export const fetchCountryDataLive = async (country: string) => {
   return modifiedData;
 };
 
-export const fetchPOITweetDates = async (country: string) => {
+export const fetchPOITweetDates = async (poiName: string) => {
   const poiDateCountArr: Array<Array<Record<string, any>>> = [];
   const poiTopCountArr: Array<Array<Record<string, any>>> = [];
-  let poiList: Array<string> = [];
+  console.log("POI Name: ", poiName);
 
-  if (country === "USA") poiList = USA_POIS;
-  else if (country === "India") poiList = INDIA_POIS;
-  else poiList = MEXICO_POIS;
+  const response = await axios.post(
+    `${APP_ENDPOINT}/get-pois-tweet-date-count`,
+    {
+      poi_name: poiName,
+    }
+  );
+  const dateCountObj = response.data.data.date_count || {};
+  const topDatesObj = response.data.data.top_dates || {};
 
-  await poiList.map(async (poi) => {
-    const response = await axios.post(
-      `${APP_ENDPOINT}/get-pois-tweet-date-count`,
-      {
-        poi_name: poi,
-      }
-    );
-    const dateCountObj = response.data.data.date_count || {};
-    const topDatesObj = response.data.data.top_dates || {};
+  const dateChartData = Object.keys(dateCountObj).map((date: string) => ({
+    date: new Date(date).toDateString(),
+    count: dateCountObj[date],
+  }));
 
-    const dateChartData = Object.keys(dateCountObj).map((date: string) => ({
-      date: new Date(date).toDateString(),
-      poi,
-      country,
-      count: dateCountObj[date],
-    }));
-    const topDatesChartData = Object.keys(topDatesObj).map((date: string) => ({
-      date: new Date(date).toDateString(),
-      poi,
-      country,
-      count: topDatesObj[date],
-    }));
-    poiDateCountArr.push(dateChartData);
-    poiTopCountArr.push(topDatesChartData);
-    return { poiDateCountArr, poiTopCountArr };
-  });
+  const topDatesChartData = Object.keys(topDatesObj).map((date: string) => ({
+    date: new Date(date).toDateString(),
+    count: topDatesObj[date],
+  }));
+  poiDateCountArr.push(dateChartData);
+  poiTopCountArr.push(topDatesChartData);
+
   return { poiDateCountArr, poiTopCountArr };
 };

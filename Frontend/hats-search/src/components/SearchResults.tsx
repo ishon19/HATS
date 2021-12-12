@@ -35,7 +35,7 @@ const SearchResults = () => {
     []
   );
   const [value, setValue] = useState("");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalResults, setTotalResults] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -128,12 +128,13 @@ const SearchResults = () => {
                 annotation={searchResult[0] || "N/A"}
                 subtitle={searchResult[0].tweet_date || "N/A"}
                 title={searchResult[0].tweet_text || "Title not available"}
+                routeToTwitter={false}
               />
             }
           </Grid>
         ))
       ) : (
-        <NoResults />
+        <NoResults title="No result found" />
       )}
       <Grid item>
         <Paginate

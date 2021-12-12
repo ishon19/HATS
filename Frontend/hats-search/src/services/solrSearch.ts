@@ -37,4 +37,28 @@ const getPOITweetCounts = async () => {
   return modifiedPOIList;
 };
 
-export { getSearchResults, getTopNPois, getPOITweetCounts };
+const getTweetByID = async (tweet_id: string) => {
+  const response = await axios.post(`${APP_ENDPOINT}/get-tweet`, {
+    tweet_id,
+  });
+  console.log("getTweetByID ", response);
+
+  return response.data.data;
+};
+
+const getTweetRepliesByID = async (tweet_id: string) => {
+  const response = await axios.post(`${APP_ENDPOINT}/get-replies`, {
+    tweet_id,
+  });
+  console.log("getTweetRepliesByID ", response);
+
+  return response.data.data;
+};
+
+export {
+  getSearchResults,
+  getTopNPois,
+  getPOITweetCounts,
+  getTweetByID,
+  getTweetRepliesByID,
+};

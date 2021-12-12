@@ -23,6 +23,7 @@ export interface ISearchResult {
   title: string;
   subtitle: string;
   annotation: ITextAnnotation;
+  routeToTwitter?: boolean;
 }
 
 export interface IPaginate {
@@ -116,5 +117,15 @@ export interface ICovidStatsByCountry {
 }
 
 export interface ISearchResultDetails {
-  poiId: string;
+  tweetId?: string;
+  poiName?: string;
+}
+
+export interface INoResultProps {
+  title: string;
+  mainResults?: boolean;
+}
+
+export interface IPOIStatsProps {
+  poi: string;
 }
