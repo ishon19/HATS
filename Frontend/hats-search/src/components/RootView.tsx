@@ -87,7 +87,7 @@ const RootView = (props: IRootView) => {
             <Box
               sx={{
                 marginLeft: "auto",
-                display: hideFilter ? "none" : "block",
+                display: "flex",
               }}
             >
               <Button variant="text" aria-label="menu" sx={{ color: "white" }}>
@@ -106,7 +106,7 @@ const RootView = (props: IRootView) => {
               <Button
                 variant="text"
                 aria-label="menu"
-                sx={{ color: "white" }}
+                sx={{ color: "white" , display: hideFilter ? "none" : "inherit"}}
                 onClick={filterClickHandler}
               >
                 <FilterAltRoundedIcon />
