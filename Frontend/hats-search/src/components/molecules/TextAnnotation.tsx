@@ -20,12 +20,6 @@ const TextAnnotation = (props: ITextAnnotation) => {
       </Grid>
       <Grid item>
         <Typography variant="caption" fontWeight={600} color="#616161">
-          Sentiment Score:{" "}
-        </Typography>
-        <Typography variant="caption">{sentiment_score || "N/A"}</Typography>
-      </Grid>
-      <Grid item>
-        <Typography variant="caption" fontWeight={600} color="#616161">
           Country:{" "}
         </Typography>
         <Typography variant="caption">{country|| "N/A"}</Typography>

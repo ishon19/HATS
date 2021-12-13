@@ -8241,6 +8241,7 @@ export const countryMap = {
 
 export const convertToCapitalCase = (str: string) => {
   return str.replace(/\w\S*/g, (txt: string) => {
+    if (str === "US" || str === "USA") return txt;
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   });
 };
