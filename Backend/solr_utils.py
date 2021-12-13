@@ -53,7 +53,7 @@ class SolrUtils:
         
     def get_options(filters, page, row):
         start = page * row
-        rows = start + row
+        rows = row
         filt = []
         if 'pois' in filters:
             temp = ""
