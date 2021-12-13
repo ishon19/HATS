@@ -62,7 +62,7 @@ const POIStats = (props: IPOIStatsProps) => {
         fontWeight={25}
         color="#616161"
       >
-        {`${poi} Tweet Counter vs COVID-19 curve in ${convertToCapitalCase(
+        {`${poi} Tweet Counter vs COVID-19 curve/10000 in ${convertToCapitalCase(
           country
         )}`}
       </Typography>
