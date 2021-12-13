@@ -21,11 +21,12 @@ import { IPOIStatsProps } from "../../interfaces/interface";
 import { fetchPOITweetDates } from "../../services/covid-tracker";
 import { cardStyles } from "../styles/card-styles";
 import { chartStyles } from "../styles/chart-styles";
+import { convertToCapitalCase, countryMap, COVID_DATA_ARR } from "./covid-data";
 
 const POIStats = (props: IPOIStatsProps) => {
   const [loading, setLoading] = React.useState(true);
   const [data, setData] = React.useState<Array<Record<string, any>>>([]);
-  const { poi } = props;
+  const { poi, country } = props;
   const classes = cardStyles();
   const chartClasses = chartStyles();
 
@@ -61,36 +62,70 @@ const POIStats = (props: IPOIStatsProps) => {
         fontWeight={25}
         color="#616161"
       >
-        {`${poi} Tweet Counter`}
+        {`${poi} Tweet Counter vs COVID-19 curve in ${convertToCapitalCase(
+          country
+        )}`}
       </Typography>
       <Card className={classes.root}>
         <CardContent style={{ textAlign: "center" }}>
           {!loading && data.length > 0 ? (
-            <ResponsiveContainer
-              width="40%"
-              height="100%"
-              aspect={2}
-              className={chartClasses.root}
-            >
-              <BarChart
-                width={300}
-                height={300}
-                data={data}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
+            <>
+              <ResponsiveContainer
+                width="40%"
+                height="100%"
+                aspect={2}
+                className={chartClasses.root}
               >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="count" fill="#ff4081" />
-              </BarChart>
-            </ResponsiveContainer>
+                <BarChart
+                  width={300}
+                  height={300}
+                  data={data}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="count" fill="#ff4081" />
+                </BarChart>
+              </ResponsiveContainer>
+              <ResponsiveContainer
+                width="40%"
+                height="100%"
+                aspect={2}
+                className={chartClasses.root}
+              >
+                <BarChart
+                  width={300}
+                  height={300}
+                  data={COVID_DATA_ARR}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar
+                    dataKey={`${
+                      countryMap[convertToCapitalCase(country)]
+                    }_rolling`}
+                    fill="#0d47a1"
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </>
           ) : (
             <CircularProgress />
           )}

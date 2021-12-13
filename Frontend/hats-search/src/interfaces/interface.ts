@@ -128,4 +128,5 @@ export interface INoResultProps {
 
 export interface IPOIStatsProps {
   poi: string;
+  country: string;
 }

@@ -7,6 +7,7 @@ import POIStats from "../graphs/POIStats";
 const SearchResultDetails = () => {
   const [params] = useSearchParams();
   const poiName = (params.get("poi") as string) ?? "";
+  const country = (params.get("country") as string) ?? "";
 
   return (
     <Grid container padding={3} spacing={3}>
@@ -17,7 +18,7 @@ const SearchResultDetails = () => {
         <SearchResultReplies />
       </Grid>
       <Grid item xs={12}>
-        <POIStats poi={poiName} />
+        <POIStats poi={poiName} country={country} />
       </Grid>
     </Grid>
   );
