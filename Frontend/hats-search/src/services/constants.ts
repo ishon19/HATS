@@ -1,5 +1,6 @@
 // This file contains all the constants used by the services
-export const APP_ENDPOINT = "http://18.205.244.23:9999";
+// export const APP_ENDPOINT = "http://18.205.244.23:9999";
+export const APP_ENDPOINT = "http://44.202.15.108:9999";
 export const SEARCH_ENDPOINT = "http://18.205.244.23:9999/search";
 export const FIND_TOP_POI_ENDPOINT = "http://18.205.244.23:9999/get-pois";
 export const infectedUrl =
